@@ -11,6 +11,20 @@ file(GLOB SRC_FILES "src/*.h" "src/*.cpp" )
 add_executable(grape ${SRC_FILES})
 target_link_libraries(grape ${CONAN_LIBS})
 
+## Copy Shader
+file(GLOB TEX_FILES "shaders/*.*")
+foreach(file ${TEX_FILES})
+    file(RELATIVE_PATH file_rel_path ${CMAKE_CURRENT_SOURCE_DIR} ${file})
+    configure_file(${file} "bin/${file_rel_path}" COPYONLY)
+endforeach()
+
+## Copy Textures
+file(GLOB TEX_FILES "textures/*.*")
+foreach(file ${TEX_FILES})
+    file(RELATIVE_PATH file_rel_path ${CMAKE_CURRENT_SOURCE_DIR} ${file})
+    configure_file(${file} "bin/${file_rel_path}" COPYONLY)
+endforeach()
+
 # # Src and Include folders
 # file(GLOB_RECURSE SRC_FILES "src/*.cpp" "src/*.h")
 # include_directories("include")
