@@ -48,7 +48,7 @@ uint Texture::load(const string& path) {
         glTexImage2D(GL_TEXTURE_2D, 0, texFormat, _width, _height, 0, texFormat, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     } else {
-        log(error) << "Failed to load texture";
+        LOG(error) << "Failed to load texture";
     }
     stbi_image_free(data);
 

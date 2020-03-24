@@ -10,6 +10,7 @@ file(GLOB SRC_FILES "src/*.h" "src/*.cpp" )
 
 add_executable(grape ${SRC_FILES})
 target_link_libraries(grape ${CONAN_LIBS})
+target_compile_features(grape PRIVATE cxx_std_11)
 
 ## Copy Shader
 file(GLOB TEX_FILES "shaders/*.*")

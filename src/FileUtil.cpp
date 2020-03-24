@@ -32,7 +32,7 @@ string FileUtil::readFile(const string& filename) {
     ifstream file(filename, ios::ate | ios::binary);
 
     if (!file.is_open()) {
-        log(error) << "failed to open file:" << filename;
+        LOG(error) << "failed to open file:" << filename;
         return buffer;
     }
 
@@ -50,7 +50,7 @@ bool FileUtil::loadFile(const string& filename, vector<unsigned char>& data) {
     ifstream file(filename, ios::binary);
 
     if (!file.is_open()) {
-        log(error) << "fail to open file: " << filename;
+        LOG(error) << "fail to open file: " << filename;
         return false;
     }
 

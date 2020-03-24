@@ -69,7 +69,7 @@ uint Shader::createShader(const string& path, GLuint type) {
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        log(error) << "ERROR: " << infoLog;
+        LOG(error) << "ERROR: " << infoLog;
     }
     return shaderID;
 }
