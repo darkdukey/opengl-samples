@@ -1,5 +1,7 @@
-#include <glm/glm.hpp>
+#pragma once
 
+#include <glm/glm.hpp>
+#include <memory>
 #include "common.h"
 
 enum ProjMode {
@@ -17,6 +19,7 @@ class Camera {
     ProjMode _mode = Perspective;
 
    public:
+    static std::shared_ptr<Camera> create(int width, int height);
     Camera(int width, int height);
     ~Camera();
     void position(float x, float y, float z);

@@ -3,8 +3,10 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include "Camera.h"
 #include "Debug.h"
 #include "FileUtil.h"
+#include "Scene.h"
 #include "Sprite.h"
 #include "common.h"
 
@@ -43,10 +45,18 @@ int main(int argc, char const* argv[]) {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Sprite sp1("textures/awesomeface.png");
-    sp1.x(0.5f);
-    Sprite sp2("textures/wall.jpg");
-    sp2.x(-0.5f);
+    auto sp1 = Sprite::create("textures/awesomeface.png");
+    sp1->x(0.5f);
+    auto sp2 = Sprite::create("textures/wall.jpg");
+    sp2->x(-0.5f);
+
+    auto cam = Camera::create(800, 600);
+    cam->position(0, 0, -3);
+
+    Scene sc;
+    sc.addCamera(cam);
+    sc.addChild(sp1);
+    sc.addChild(sp2);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
@@ -54,8 +64,7 @@ int main(int argc, char const* argv[]) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        sp1.draw();
-        sp2.draw();
+        sc.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

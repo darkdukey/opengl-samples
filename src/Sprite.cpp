@@ -5,6 +5,7 @@
 #include "ShaderManager.h"
 #include "Sprite.h"
 #include "Texture.h"
+#include "TextureManager.h"
 
 using namespace std;
 
@@ -22,24 +23,30 @@ uint indices[] = {
     1, 2, 3   // second triangle
 };
 
+shared_ptr<Sprite> Sprite::create(const std::string& filename) {
+    return make_shared<Sprite>(filename);
+}
+
 Sprite::Sprite(const string& filename)
     : _x(0), _y(0), _z(0) {
     _shader = ShaderManager::getInstance()->get("basic");
     //TODO: implement texture cache
-    _texture = new Texture(filename);
+    _texture = TextureManager::getInstance()->get(filename);
     _transform = glm::mat4(1.0f);
     //TODO: create buffer using buffer mananger
     createBuffer();
 }
 
 Sprite::~Sprite() {
-    delete _texture;
 }
 
-void Sprite::draw() {
+void Sprite::draw(const glm::mat4& proj, const glm::mat4& view) {
     _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
     _shader->enable();
     _shader->setMat4("transform", _transform);
+
+    _shader->setMat4("proj", proj);
+    _shader->setMat4("view", view);
     // shader.setInt("texture1", 0);
     // shader.setInt("texture2", 1);
     _texture->enable(GL_TEXTURE0);

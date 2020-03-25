@@ -1,4 +1,6 @@
+#pragma once
 #include <glm/glm.hpp>
+#include <memory>
 
 #include "common.h"
 
@@ -15,9 +17,10 @@ class Sprite {
     float _z;
 
    public:
+    static std::shared_ptr<Sprite> create(const std::string& filename);
     Sprite(const std::string& filename);
     ~Sprite();
-    void draw();
+    void draw(const glm::mat4& proj, const glm::mat4& view);
     void x(float x) { _x = x; }
     void y(float y) { _y = y; }
     void z(float z) { _z = z; }
