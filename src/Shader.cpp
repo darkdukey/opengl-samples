@@ -8,7 +8,15 @@
 using namespace std;
 using namespace NT;
 
+Shader::Shader(const std::string& name) {
+    init(string() + "shaders/" + name + ".vert", string() + "shaders/" + name + ".frag");
+}
+
 Shader::Shader(const string& vertexPath, const string& fragmentPath) {
+    init(vertexPath, fragmentPath);
+}
+
+void Shader::init(const std::string& vertexPath, const std::string& fragmentPath) {
     int success;
     char infoLog[512];
 
@@ -52,7 +60,7 @@ void Shader::setMat4(const std::string& name, const glm::mat4& value) const {
     glUniformMatrix4fv(glGetUniformLocation(_shaderID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
 
-uint Shader::createShader(const string& path, GLuint type) {
+uint Shader::createShader(const string& path, uint type) {
     int success;
     char infoLog[512];
 

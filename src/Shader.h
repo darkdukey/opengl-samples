@@ -6,6 +6,7 @@
 
 class Shader {
    public:
+    Shader(const std::string& name);
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     ~Shader();
 
@@ -16,7 +17,8 @@ class Shader {
     void setMat4(const std::string& name, const glm::mat4& value) const;
 
    private:
-    uint createShader(const std::string& path, GLuint type);
+    void init(const std::string& vertexPath, const std::string& fragmentPath);
+    uint createShader(const std::string& path, uint type);
 
    private:
     uint _shaderID;

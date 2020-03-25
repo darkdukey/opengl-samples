@@ -2,6 +2,10 @@
     "files.associations": {
         "xstring": "cpp",
         "memory": "cpp",
-        "xlocnum": "cpp"
+        "xlocnum": "cpp",
+        "istream": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "type_traits": "cpp"
     }
 }

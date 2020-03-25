@@ -43,8 +43,10 @@ int main(int argc, char const* argv[]) {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Sprite sp("textures/awesomeface.png");
-    sp.x(0.5f);
+    Sprite sp1("textures/awesomeface.png");
+    sp1.x(0.5f);
+    Sprite sp2("textures/wall.jpg");
+    sp2.x(-0.5f);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
@@ -52,7 +54,8 @@ int main(int argc, char const* argv[]) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        sp.draw();
+        sp1.draw();
+        sp2.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -2,6 +2,7 @@
 //User headers
 #include <glm/gtc/matrix_transform.hpp>
 #include "Shader.h"
+#include "ShaderManager.h"
 #include "Sprite.h"
 #include "Texture.h"
 
@@ -23,7 +24,8 @@ uint indices[] = {
 
 Sprite::Sprite(const string& filename)
     : _x(0), _y(0), _z(0) {
-    _shader = new Shader("shaders/basic.vert", "shaders/basic.frag");
+    _shader = ShaderManager::getInstance()->get("basic");
+    //TODO: implement texture cache
     _texture = new Texture(filename);
     _transform = glm::mat4(1.0f);
     //TODO: create buffer using buffer mananger
@@ -31,7 +33,6 @@ Sprite::Sprite(const string& filename)
 }
 
 Sprite::~Sprite() {
-    delete _shader;
     delete _texture;
 }
 
