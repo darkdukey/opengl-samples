@@ -1,6 +1,7 @@
 #include "Scene.h"
+
 #include "Camera.h"
-#include "Sprite.h"
+#include "Node.h"
 Scene::Scene() {
 }
 
@@ -8,7 +9,7 @@ Scene::~Scene() {
     _children.clear();
 }
 
-void Scene::addChild(std::shared_ptr<Sprite> child) {
+void Scene::addChild(std::shared_ptr<Node> child) {
     _children.push_back(child);
 }
 

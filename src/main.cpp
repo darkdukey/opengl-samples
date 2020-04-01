@@ -3,7 +3,9 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+
 #include "Camera.h"
+#include "Cube.h"
 #include "Debug.h"
 #include "FileUtil.h"
 #include "Scene.h"
@@ -49,14 +51,16 @@ int main(int argc, char const* argv[]) {
     sp1->x(0.5f);
     auto sp2 = Sprite::create("textures/wall.jpg");
     sp2->x(-0.5f);
+    auto cb1 = Cube::create("textures/wall.jpg");
 
     auto cam = Camera::create(800, 600);
-    cam->position(0, 0, -3);
+    cam->position(0, 0, -10);
 
     Scene sc;
     sc.addCamera(cam);
     sc.addChild(sp1);
     sc.addChild(sp2);
+    sc.addChild(cb1);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);

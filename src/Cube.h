@@ -1,12 +1,13 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <memory>
+#include <string>
 
 #include "Node.h"
 #include "common.h"
 class Shader;
 class Texture;
-class Sprite : public Node {
+class Cube : public Node {
    private:
     Shader* _shader;
     Texture* _texture;
@@ -17,9 +18,9 @@ class Sprite : public Node {
     float _z;
 
    public:
-    static std::shared_ptr<Sprite> create(const std::string& filename);
-    Sprite(const std::string& filename);
-    ~Sprite();
+    Cube(const std::string& filename);
+    ~Cube();
+    static std::shared_ptr<Cube> create(const std::string& filename);
     void draw(const glm::mat4& proj, const glm::mat4& view) override;
     void x(float x) { _x = x; }
     void y(float y) { _y = y; }
