@@ -13,14 +13,14 @@ using namespace std;
 
 float cube_vertices[] = {
     // positions        //Color           //texcoords
-    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-    -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-    0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-    0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-    -0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f};
+    -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,  //fbl
+    0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,   //fbr
+    0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,    //ftl
+    -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,   //ftr
+    -0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,   //bbl
+    0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,    //bbr
+    0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,     //btr
+    -0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f};   //btl
 
 int cube_indices[6 * 6] =
     {
@@ -31,7 +31,7 @@ int cube_indices[6 * 6] =
         3, 2, 7, 7, 2, 6,
         4, 5, 0, 0, 5, 1};
 
-Cube::Cube(const string& filename) : _x(0), _y(0), _z(0) {
+Cube::Cube(const string& filename) {
     _shader = ShaderManager::getInstance()->get("basic");
     //TODO: implement texture cache
     _texture = TextureManager::getInstance()->get(filename);
@@ -48,7 +48,7 @@ shared_ptr<Cube> Cube::create(const std::string& filename) {
 }
 
 void Cube::draw(const glm::mat4& proj, const glm::mat4& view) {
-    _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
+    // _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
     _shader->enable();
     _shader->setMat4("transform", _transform);
 

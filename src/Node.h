@@ -5,7 +5,7 @@
 class Shader;
 class Texture;
 class Node {
-   private:
+   protected:
     Shader* _shader;
     Texture* _texture;
     uint _VAO;
@@ -25,4 +25,16 @@ class Node {
     virtual ~Node();
     virtual void update();
     virtual void draw(const glm::mat4& proj, const glm::mat4& view){};
+    void x(float x) { _x = x; }
+    void y(float y) { _y = y; }
+    void z(float z) { _z = z; }
+    float getX() {return _x;}
+    float getY() {return _y;}
+    float getZ() {return _z;}
+    void rotX(float v) { _rotX = v;}
+    void rotY(float v) { _rotY = v;}
+    void rotZ(float v) { _rotZ = v;}
+    float getRotX() {return _rotX;}
+    float getRotY() {return _rotY;}
+    float getRotZ() {return _rotZ;}
 };

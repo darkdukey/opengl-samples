@@ -22,3 +22,9 @@ void Scene::draw() {
         ch->draw(_camera->getProj(), _camera->getView());
     }
 }
+
+void Scene::update() {
+    for (auto& ch : _children) {
+        ch->update();
+    }
+}

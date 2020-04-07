@@ -47,28 +47,35 @@ int main(int argc, char const* argv[]) {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    auto sp1 = Sprite::create("textures/awesomeface.png");
-    sp1->x(0.5f);
-    auto sp2 = Sprite::create("textures/wall.jpg");
-    sp2->x(-0.5f);
+    Scene sc;
+
+    // auto sp1 = Sprite::create("textures/awesomeface.png");
+    // sp1->x(0.5f);
+    // sc.addChild(sp1);
+    // auto sp2 = Sprite::create("textures/wall.jpg");
+    // sp2->x(-0.5f);
+    // sc.addChild(sp2);
+
     auto cb1 = Cube::create("textures/wall.jpg");
+    sc.addChild(cb1);
 
     auto cam = Camera::create(800, 600);
-    cam->position(0, 0, -10);
-
-    Scene sc;
+    cam->position(0, 3, -3);
+    cam->lookat(0, 0, 0);
     sc.addCamera(cam);
-    sc.addChild(sp1);
-    sc.addChild(sp2);
-    sc.addChild(cb1);
+
+    //TODO: move this to renderer
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         sc.draw();
+        sc.update();
+        cb1->rotY(cb1->getRotY() + 1);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

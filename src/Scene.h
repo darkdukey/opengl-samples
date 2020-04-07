@@ -16,4 +16,5 @@ class Scene {
     void addChild(std::shared_ptr<Node> child);
     void addCamera(std::shared_ptr<Camera> camera);
     void draw();
+    void update();
 };

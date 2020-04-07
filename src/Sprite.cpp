@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 //User headers
 #include <glm/gtc/matrix_transform.hpp>
+
 #include "Shader.h"
 #include "ShaderManager.h"
 #include "Sprite.h"
@@ -27,8 +28,7 @@ shared_ptr<Sprite> Sprite::create(const std::string& filename) {
     return make_shared<Sprite>(filename);
 }
 
-Sprite::Sprite(const string& filename)
-    : _x(0), _y(0), _z(0) {
+Sprite::Sprite(const string& filename) {
     _shader = ShaderManager::getInstance()->get("basic");
     //TODO: implement texture cache
     _texture = TextureManager::getInstance()->get(filename);
@@ -41,7 +41,7 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw(const glm::mat4& proj, const glm::mat4& view) {
-    _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
+    // _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
     _shader->enable();
     _shader->setMat4("transform", _transform);
 
