@@ -7,9 +7,9 @@ namespace NT {
 
 enum Level {
     debug,
-    error,
+    info,
     warning,
-    info
+    error
 };
 
 struct Debug_base {

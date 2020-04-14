@@ -1,11 +1,26 @@
 {
-    "files.associations": {
-        "xstring": "cpp",
-        "memory": "cpp",
-        "xlocnum": "cpp",
-        "istream": "cpp",
-        "tuple": "cpp",
-        "utility": "cpp",
-        "type_traits": "cpp"
+  "files.associations": {
+    "xstring": "cpp",
+    "memory": "cpp",
+    "xlocnum": "cpp",
+    "istream": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp",
+    "type_traits": "cpp",
+    "vector": "cpp",
+    "xlocale": "cpp",
+    "cmath": "cpp",
+    "string": "cpp",
+    "iosfwd": "cpp"
+  },
+  "cmake.debugConfig": {
+    "stopAtEntry": false,
+    "MIMode": "lldb",
+    "miDebuggerPath": "/Users/darkdukey/.vscode/extensions/ms-vscode.cpptools-0.27.0/debugAdapters/lldb/bin/lldb-mi",
+    "logging": {
+      "trace": false,
+      "engineLogging": false,
+      "traceResponse": false
     }
+  }
 }

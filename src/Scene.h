@@ -1,20 +1,18 @@
 #include <memory>
 #include <vector>
 
+#include "Node.h"
 #include "common.h"
 
-class Node;
 class Camera;
-class Scene {
+class Scene : public Node {
    private:
-    std::vector<std::shared_ptr<Node>> _children;
     std::shared_ptr<Camera> _camera;
 
    public:
+    static std::shared_ptr<Scene> create();
     Scene();
     ~Scene();
-    void addChild(std::shared_ptr<Node> child);
     void addCamera(std::shared_ptr<Camera> camera);
     void draw();
-    void update();
 };

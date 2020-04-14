@@ -1,8 +1,8 @@
 #include <map>
 #include <string>
-#include "common.h"
 
-class Shader;
+#include "Shader.h"
+#include "common.h"
 
 class ShaderManager {
    private:

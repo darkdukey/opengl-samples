@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <memory>
 
+#include "Graphics.h"
 #include "Node.h"
 #include "common.h"
 
@@ -11,8 +12,4 @@ class Sprite : public Node {
     static std::shared_ptr<Sprite> create(const std::string& filename);
     Sprite(const std::string& filename);
     ~Sprite();
-    void draw(const glm::mat4& proj, const glm::mat4& view) override;
-
-   private:
-    void createBuffer();
 };

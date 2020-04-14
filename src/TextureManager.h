@@ -1,9 +1,9 @@
 #include <map>
 #include <string>
 
+#include "Texture.h"
 #include "common.h"
 
-class Texture;
 class TextureManager {
    private:
     static TextureManager* s_instance;

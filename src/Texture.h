@@ -3,6 +3,7 @@
 //Don't reorg
 
 #include <string>
+
 #include "common.h"
 
 class Texture {
@@ -10,6 +11,7 @@ class Texture {
     Texture(const std::string& path);
     ~Texture();
     void enable(int order = GL_TEXTURE0);
+    uint getID() { return _textureID; }
 
    private:
     uint load(const std::string& path);

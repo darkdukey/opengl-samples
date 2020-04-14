@@ -5,16 +5,11 @@
 
 #include "Node.h"
 #include "common.h"
-class Shader;
-class Texture;
+
 class Cube : public Node {
    private:
    public:
+    static std::shared_ptr<Cube> create(const std::string& filename);
     Cube(const std::string& filename);
     ~Cube();
-    static std::shared_ptr<Cube> create(const std::string& filename);
-    void draw(const glm::mat4& proj, const glm::mat4& view) override;
-
-   private:
-    void createBuffer();
 };

@@ -1,6 +1,8 @@
 #include "FileUtil.h"
+
 #include <fstream>
 #include <iterator>
+
 #include "Debug.h"
 
 using namespace std;
@@ -48,15 +50,12 @@ string FileUtil::readFile(const string& filename) {
 bool FileUtil::loadFile(const string& filename, vector<unsigned char>& data) {
     // open the file:
     ifstream file(filename, ios::binary);
-
     if (!file.is_open()) {
         LOG(error) << "fail to open file: " << filename;
         return false;
     }
-
     // Stop eating new lines in binary mode!!!
     file.unsetf(ios::skipws);
-
     // get its size:
     streampos fileSize;
 
@@ -66,11 +65,21 @@ bool FileUtil::loadFile(const string& filename, vector<unsigned char>& data) {
 
     // reserve capacity
     data.reserve(fileSize);
-
     // read the data:
     data.insert(data.begin(), istream_iterator<unsigned char>(file), istream_iterator<unsigned char>());
 
     return true;
+}
+
+std::string FileUtil::join(const std::string& a, const std::string& b) {
+    string res;
+    if (a.back() != separator()) {
+        res = a + separator() + b;
+    } else {
+        res = a + b;
+    }
+
+    return res;
 }
 
 }  // namespace NT
