@@ -4,6 +4,8 @@
 
 #include "Graphics.h"
 #include "common.h"
+
+class LightManager;
 //TODO: change to ECS architecture
 class Node : public std::enable_shared_from_this<Node> {
    protected:
@@ -26,10 +28,11 @@ class Node : public std::enable_shared_from_this<Node> {
     Node();
     virtual ~Node();
     virtual void update();
-    virtual void draw(const glm::mat4& proj, const glm::mat4& view);
+    virtual void draw(const glm::mat4& proj, const glm::mat4& view, LightManager* lightMgr);
 
     std::shared_ptr<Node> getPtr() { return shared_from_this(); }
     std::shared_ptr<Node> getParent() { return _parent; }
+    std::shared_ptr<Graphics> getGraphics() const { return _graphics; }
     glm::mat4 getTransform() { return _transform; }
     void addChild(std::shared_ptr<Node> child);
     void removeChild(std::shared_ptr<Node> child);

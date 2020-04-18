@@ -17,7 +17,3 @@ Mesh::Mesh(
     }
     _graphics->createBuffer(vertices, indices);
 }
-
-void Mesh::draw(const glm::mat4& proj, const glm::mat4& view) {
-    _graphics->draw(proj, view, _transform);
-}

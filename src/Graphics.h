@@ -20,6 +20,7 @@ class Graphics {
    public:
     Graphics(const std::string& shader_name);
     ~Graphics();
+    Shader* getShader() const { return _shader; }
     void addTexture(const std::string& name, const std::string& type = "texture0");
     void draw(const glm::mat4& proj, const glm::mat4& view, const glm::mat4& transform);
     void createBuffer(const std::vector<Vertex>& vertices, const std::vector<uint>& indices);

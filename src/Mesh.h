@@ -16,7 +16,6 @@ class Mesh : public Node {
         std::vector<Vertex>& vertices,
         std::vector<uint>& indices,
         std::map<std::string, std::string>& samplerMap);
-    void draw(const glm::mat4& proj, const glm::mat4& view) override;
 
    private:
     /*  Functions    */

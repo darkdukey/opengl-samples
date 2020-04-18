@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "LightManager.h"
+
 using namespace std;
 
 std::shared_ptr<Node> Node::create() {
@@ -44,12 +46,14 @@ void Node::update() {
     }
 }
 
-void Node::draw(const glm::mat4& proj, const glm::mat4& view) {
-    if (_graphics != nullptr)
+void Node::draw(const glm::mat4& proj, const glm::mat4& view, LightManager* lightMgr) {
+    if (_graphics != nullptr) {
+        lightMgr->update(_graphics);
         _graphics->draw(proj, view, _transform);
+    }
 
     for (auto& c : _children) {
-        c->draw(proj, view);
+        c->draw(proj, view, lightMgr);
     }
 }
 

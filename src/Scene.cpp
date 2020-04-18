@@ -21,7 +21,7 @@ void Scene::addCamera(shared_ptr<Camera> camera) {
 }
 
 void Scene::draw() {
-    for (auto& ch : _children) {
-        ch->draw(_camera->getProj(), _camera->getView());
+    for (auto ch : _children) {
+        ch->draw(_camera->getProj(), _camera->getView(), &_lightManager);
     }
 }

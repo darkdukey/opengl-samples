@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 //User headers
 #include <glm/gtc/type_ptr.hpp>
+
 #include "Debug.h"
 #include "FileUtil.h"
 #include "Shader.h"
@@ -8,7 +9,7 @@
 using namespace std;
 using namespace NT;
 
-Shader::Shader(const std::string& name) {
+Shader::Shader(const string& name) {
     init(string() + "shaders/" + name + ".vert", string() + "shaders/" + name + ".frag");
 }
 
@@ -16,7 +17,7 @@ Shader::Shader(const string& vertexPath, const string& fragmentPath) {
     init(vertexPath, fragmentPath);
 }
 
-void Shader::init(const std::string& vertexPath, const std::string& fragmentPath) {
+void Shader::init(const string& vertexPath, const string& fragmentPath) {
     int success;
     char infoLog[512];
 
@@ -56,7 +57,15 @@ void Shader::setFloat(const string& name, float value) const {
     glUniform1f(glGetUniformLocation(_shaderID, name.c_str()), value);
 }
 
-void Shader::setMat4(const std::string& name, const glm::mat4& value) const {
+void Shader::setVec3(const std::string& name, const glm::vec3& value) const {
+    glUniform3fv(glGetUniformLocation(_shaderID, name.c_str()), 1, &value[0]);
+}
+
+// void Shader::setVec3(const string& name, const glm::vec3& value) const {
+//     glUniform3fv(glGetUniformLocation(_shaderID, name.c_str()), 1, glm::value_ptr(value));
+// }
+
+void Shader::setMat4(const string& name, const glm::mat4& value) const {
     glUniformMatrix4fv(glGetUniformLocation(_shaderID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
 

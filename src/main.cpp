@@ -69,8 +69,8 @@ int main(int argc, char const* argv[]) {
     root->addChild(cb1);
 
     auto cam = Camera::create(800, 600);
-    cam->position(0, 30, -30);
-    cam->lookat(0, 0, 0);
+    cam->position(0, 20, 10);
+    cam->lookat(0, 10, 0);
     sc->addCamera(cam);
 
     //TODO: move this to renderer
@@ -84,8 +84,8 @@ int main(int argc, char const* argv[]) {
 
         sc->draw();
         sc->update();
-        root->rotByY(1);
-        mod->rotByY(-1);
+        root->rotByY(0.1f);
+        mod->rotByY(-0.1f);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

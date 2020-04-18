@@ -126,6 +126,6 @@ void Model::loadMaterialTextures(
         //Make sure the texture path is under model folder
         img_path = FileUtil::join(_modelDir, str.C_Str());
         samplerMap[img_path] = typeName + to_string(i);
-        LOG(debug) << typeName;
+        LOG(debug) << typeName << i;
     }
 }
