@@ -56,7 +56,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
         s->setMat4("view", cam->getView());
 
         // Update Light
-        s->setVec3(lightMgr->NameAmbientColor, lightMgr->getAmbientColor());
+        lightMgr->drawLights(s);
 
         int c = 0;
         for (auto& it : data.getUniformMap()) {

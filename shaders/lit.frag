@@ -5,6 +5,9 @@ in vec3 Normal;
 out vec4 FragColor;
 
 uniform vec3 ambientColor;
+uniform vec3 directLightPos[6];
+uniform vec3 directLightColor[6];
+uniform int directLightCount;
 uniform sampler2D texture_diffuse0;
 uniform sampler2D texture_specular0;
 uniform sampler2D texture_normal0;
