@@ -60,14 +60,3 @@ void LightManager::releaseLight(shared_ptr<Light> light) {
         _lights.erase(pos);
     }
 }
-
-void LightManager::update(std::shared_ptr<Graphics> g) {
-    if (g != nullptr && g->getShader() != nullptr) {
-        // Apply Ambient Color
-        glm::vec3 color = _ambientColor * _ambientStrength;
-        g->getShader()->setVec3(NameAmbientColor, color);
-        for (auto l : _lights) {
-            // shader->setVec3(l->getName(), )
-        }
-    }
-}

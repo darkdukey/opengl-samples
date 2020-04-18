@@ -2,7 +2,7 @@
 
 #include "Camera.h"
 #include "Node.h"
-
+#include "Renderer.h"
 using namespace std;
 
 shared_ptr<Scene> Scene::create() {
@@ -22,6 +22,7 @@ void Scene::addCamera(shared_ptr<Camera> camera) {
 
 void Scene::draw() {
     for (auto ch : _children) {
-        ch->draw(_camera->getProj(), _camera->getView(), &_lightManager);
+        ch->draw();
     }
+    Renderer::getInstance()->draw(_camera, &_lightManager);
 }

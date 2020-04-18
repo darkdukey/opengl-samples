@@ -50,5 +50,5 @@ class LightManager {
     std::shared_ptr<Light> getLight(LightType type);
     void releaseLight(std::shared_ptr<Light> light);
 
-    void update(std::shared_ptr<Graphics> g);
+    glm::vec3 getAmbientColor() { return _ambientColor * _ambientStrength; }
 };

@@ -2,13 +2,13 @@
 
 #include <iterator>
 
-#include "Camera.h"
-#include "ShaderManager.h"
+#include "Renderer.h"
 #include "TextureManager.h"
 using namespace std;
 
 Graphics::Graphics(const string& shader_name) {
-    _shader = ShaderManager::getInstance()->get(shader_name);
+    _cmd = Renderer::getInstance()->getCmd();
+    _cmd->setShaderName(shader_name);
 }
 
 Graphics::~Graphics() {
@@ -21,26 +21,11 @@ void Graphics::addTexture(const std::string& name, const std::string& type) {
     }
 }
 
-void Graphics::draw(const glm::mat4& proj, const glm::mat4& view, const glm::mat4& transform) {
-    // uncomment this call to draw in wireframe polygons.
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-    _shader->enable();
-    _shader->setMat4("transform", transform);
-    _shader->setMat4("proj", proj);
-    _shader->setMat4("view", view);
-
-    int i = 0;
-    for (auto& it : _textures) {
-        glActiveTexture(GL_TEXTURE0 + i);
-        it.second->enable(GL_TEXTURE0 + i);
-        string uniform_name = _textureUniformMap[it.first];
-        _shader->setInt(uniform_name, i);
-        i++;
-    }
-
-    glBindVertexArray(_VAO);
-    glDrawElements(GL_TRIANGLES, _indexSize, GL_UNSIGNED_INT, 0);
+void Graphics::draw(const glm::mat4& transform) {
+    _cmd->setTransform(transform);
+    _cmd->setMap(_textureUniformMap);
+    _cmd->setVAO(_VAO);
+    _cmd->setCount(_indexSize);
 }
 
 void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& indices) {

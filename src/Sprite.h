@@ -2,7 +2,6 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-#include "Graphics.h"
 #include "Node.h"
 #include "common.h"
 

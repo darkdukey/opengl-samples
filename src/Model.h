@@ -4,7 +4,6 @@
 
 #include <string>
 
-#include "Mesh.h"
 #include "Node.h"
 
 class Model : public Node {

@@ -8,6 +8,7 @@
 
 #include "Debug.h"
 #include "FileUtil.h"
+#include "Mesh.h"
 #include "ShaderManager.h"
 #include "TextureManager.h"
 using namespace std;
