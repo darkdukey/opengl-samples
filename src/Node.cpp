@@ -11,9 +11,7 @@ std::shared_ptr<Node> Node::create() {
 
 Node::Node()
     : _graphics(nullptr),
-      _x(0),
-      _y(0),
-      _z(0),
+      _pos(0),
       _rotX(0),
       _rotY(0),
       _rotZ(0),
@@ -28,7 +26,7 @@ Node::~Node() {
 }
 
 void Node::update() {
-    _transform = glm::translate(glm::mat4(1.0f), glm::vec3(_x, _y, _z));
+    _transform = glm::translate(glm::mat4(1.0f), _pos);
     _transform = glm::rotate(_transform, glm::radians(_rotX), glm::vec3(1, 0, 0));
     _transform = glm::rotate(_transform, glm::radians(_rotY), glm::vec3(0, 1, 0));
     _transform = glm::rotate(_transform, glm::radians(_rotZ), glm::vec3(0, 0, 1));

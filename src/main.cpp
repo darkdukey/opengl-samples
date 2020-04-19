@@ -53,6 +53,12 @@ int main(int argc, char const* argv[]) {
     auto root = Node::create();
     sc->addChild(root);
 
+    // Create light
+    auto directLight = Light::create("sun", Directional);
+    directLight->position(0, 20, 10);
+    directLight->setColor(0.4, 0, 0);
+    sc->addLight(directLight);
+
     // auto mod = Model::create("models/room/model.gltf");
     auto mod = Model::create("models/nanosuit/scene.gltf");
     mod->load();

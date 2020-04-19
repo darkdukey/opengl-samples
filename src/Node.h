@@ -13,9 +13,7 @@ class Node : public std::enable_shared_from_this<Node> {
     glm::mat4 _transform;
     std::vector<std::shared_ptr<Node>> _children;
     std::shared_ptr<Node> _parent;
-    float _x;
-    float _y;
-    float _z;
+    glm::vec3 _pos;
     float _rotX;
     float _rotY;
     float _rotZ;
@@ -37,12 +35,14 @@ class Node : public std::enable_shared_from_this<Node> {
     void addChild(std::shared_ptr<Node> child);
     void removeChild(std::shared_ptr<Node> child);
 
-    void x(float x) { _x = x; }
-    void y(float y) { _y = y; }
-    void z(float z) { _z = z; }
-    float getX() { return _x; }
-    float getY() { return _y; }
-    float getZ() { return _z; }
+    void position(float x, float y, float z) { _pos = {x, y, z}; }
+    glm::vec3 getPosition() { return _pos; }
+    void x(float x) { _pos.x = x; }
+    void y(float y) { _pos.y = y; }
+    void z(float z) { _pos.z = z; }
+    float getX() { return _pos.x; }
+    float getY() { return _pos.y; }
+    float getZ() { return _pos.z; }
     void rotX(float v) { _rotX = v; }
     void rotY(float v) { _rotY = v; }
     void rotZ(float v) { _rotZ = v; }

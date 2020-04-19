@@ -26,3 +26,8 @@ void Scene::draw() {
     }
     Renderer::getInstance()->draw(_camera, &_lightManager);
 }
+
+void Scene::addLight(std::shared_ptr<Light> light) {
+    //TODO: find a way to integrate this logic into scene graph
+    _lightManager.addLight(light);
+}

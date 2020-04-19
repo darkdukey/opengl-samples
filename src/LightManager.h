@@ -15,11 +15,13 @@ class LightManager {
    private:
     glm::vec3 _ambientColor;
     float _ambientStrength;
-    std::unordered_map<LightType, uint> _lightTypeMap;
     std::vector<std::shared_ptr<Light>> _lights;
     std::vector<std::shared_ptr<Light>> _directLights;
     std::vector<std::shared_ptr<Light>> _pointLights;
     std::vector<std::shared_ptr<Light>> _spotLights;
+
+   private:
+    void doRemove(std::vector<std::shared_ptr<Light>>& arr, std::shared_ptr<Light> light);
 
    public:
     const std::string NameDirectional = "directLight";
@@ -35,9 +37,9 @@ class LightManager {
     ~LightManager();
 
     void setAmbientColor(glm::vec3 color) { _ambientColor = color; }
-    std::shared_ptr<Light> getLight(LightType type);
-    void releaseLight(std::shared_ptr<Light> light);
-    glm::vec3 getAmbientColor() { return _ambientColor * _ambientStrength; }
-
+    void addLight(std::shared_ptr<Light> light);
+    void removeLight(std::shared_ptr<Light> light);
     void drawLights(Shader* shader);
+
+    glm::vec3 getAmbientColor() { return _ambientColor * _ambientStrength; }
 };

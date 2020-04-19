@@ -12,41 +12,16 @@ using namespace NT;
 LightManager::LightManager() {
     _ambientColor = {1.0f, 0.5f, 0.31f};
     _ambientStrength = 0.2f;
-    _lightTypeMap[Directional] = 0;
-    _lightTypeMap[Point] = 0;
-    _lightTypeMap[Spot] = 0;
 }
 
 LightManager::~LightManager() {
     _lights.clear();
 }
 
-shared_ptr<Light> LightManager::getLight(LightType type) {
-    string name = "";
-    switch (type) {
-        case Directional:
-            name = NameDirectional;
-            break;
-        case Point:
-            name = NamePoint;
-            break;
-        case Spot:
-            name = NameSpot;
-            break;
-        default:
-            LOG(error) << "Unsupported light type";
-            break;
-    }
-
-    if (type < LightType_COUNT) {
-        name += _lightTypeMap[type];
-        _lightTypeMap[type]++;
-    }
-
-    auto light = make_shared<Light>(name, type);
+void LightManager::addLight(std::shared_ptr<Light> light) {
     _lights.push_back(light);
 
-    switch (type) {
+    switch (light->getLightType()) {
         case Directional:
             _directLights.push_back(light);
             break;
@@ -60,14 +35,30 @@ shared_ptr<Light> LightManager::getLight(LightType type) {
             LOG(error) << "Unsupported light type";
             break;
     }
-
-    return light;
 }
 
-void LightManager::releaseLight(shared_ptr<Light> light) {
-    auto pos = find(_lights.begin(), _lights.end(), light);
-    if (pos != _lights.end()) {
-        _lights.erase(pos);
+void LightManager::doRemove(std::vector<std::shared_ptr<Light>>& arr, std::shared_ptr<Light> light) {
+    auto pos = find(arr.begin(), arr.end(), light);
+    if (pos != arr.end()) {
+        arr.erase(pos);
+    }
+}
+
+void LightManager::removeLight(shared_ptr<Light> light) {
+    doRemove(_lights, light);
+    switch (light->getLightType()) {
+        case Directional:
+            doRemove(_directLights, light);
+            break;
+        case Point:
+            doRemove(_pointLights, light);
+            break;
+        case Spot:
+            doRemove(_spotLights, light);
+            break;
+        default:
+            LOG(error) << "Unsupported light type";
+            break;
     }
 }
 
@@ -88,7 +79,7 @@ void LightManager::drawLights(Shader* shader) {
         // Diffuse/Point/Spot light
         for (int i = 0; i < count; i++) {
             auto l = _directLights[i];
-            pos.push_back(l->getPos());
+            pos.push_back(l->getPosition());
             color.push_back(l->getColor());
         }
 

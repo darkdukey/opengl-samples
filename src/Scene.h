@@ -19,4 +19,6 @@ class Scene : public Node {
     ~Scene();
     void addCamera(std::shared_ptr<Camera> camera);
     void draw();
+
+    void addLight(std::shared_ptr<Light> light);
 };
