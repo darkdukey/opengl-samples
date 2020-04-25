@@ -58,15 +58,307 @@
 			"file": "opengl.sublime-project",
 			"settings":
 			{
-				"buffer_size": 545,
+				"buffer_size": 637,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "opengl (OSX)",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"opengl (OSX)",
+					""
+				],
+				[
+					"opengl (OSX)",
+					"clean"
+				],
+				[
+					"opengl (OSX)",
+					"rebuild_cache"
+				],
+				[
+					"opengl (OSX)",
+					"grape"
+				]
+			],
+			[
+				"opengl (OSX)",
+				""
+			]
+		],
+		[
+			[
+				[
+					"opengl (OSX)",
+					""
+				],
+				[
+					"opengl (OSX)",
+					"clean"
+				],
+				[
+					"opengl (OSX)",
+					"rebuild_cache"
+				],
+				[
+					"opengl (OSX)",
+					"grape"
+				],
+				[
+					"opengl (OSX)",
+					"Run"
+				]
+			],
+			[
+				"opengl (OSX)",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"opengl (OSX)",
+					""
+				],
+				[
+					"opengl (OSX)",
+					"clean"
+				],
+				[
+					"opengl (OSX)",
+					"rebuild_cache"
+				],
+				[
+					"opengl (OSX)",
+					"grape"
+				],
+				[
+					"opengl (OSX)",
+					"src/Camera.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Camera.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Camera.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Cube.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Cube.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Cube.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Director.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Director.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Director.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/FileUtil.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/FileUtil.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/FileUtil.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Graphics.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Graphics.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Graphics.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Light.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Light.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Light.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/LightManager.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/LightManager.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/LightManager.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Mesh.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Mesh.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Mesh.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Model.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Model.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Model.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Node.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Node.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Node.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Renderer.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Renderer.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Renderer.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Scene.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Scene.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Scene.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Shader.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Shader.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Shader.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/ShaderManager.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/ShaderManager.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/ShaderManager.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Sprite.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Sprite.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Sprite.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/Texture.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/Texture.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/Texture.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/TextureManager.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/TextureManager.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/TextureManager.s"
+				],
+				[
+					"opengl (OSX)",
+					"src/main.o"
+				],
+				[
+					"opengl (OSX)",
+					"src/main.i"
+				],
+				[
+					"opengl (OSX)",
+					"src/main.s"
+				]
+			],
+			[
+				"opengl (OSX)",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
@@ -75,6 +367,34 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"pcu",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"pcl",
+				"Package Control: List Packages"
+			],
+			[
+				"build",
+				"Build With: opengl (OSX)"
+			],
+			[
+				"pcre",
+				"Package Control: Remove Package"
+			],
+			[
+				"pc",
+				"Package Control: List Packages"
+			],
+			[
+				"cmake",
+				"CMakeBuilder: Configure"
+			],
 			[
 				"project",
 				"Project: Save As"
@@ -112,7 +432,9 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/darkdukey/Projects/cpp/opengl-samples"
+		"/Users/darkdukey/Projects/cpp/opengl-samples",
+		"/Users/darkdukey/Projects/cpp/opengl-samples/build",
+		"/Users/darkdukey/Projects/cpp/opengl-samples/build/bin"
 	],
 	"file_history":
 	[
@@ -238,15 +560,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 545,
+						"buffer_size": 637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								296,
-								296
+								408,
+								408
 							]
 						],
 						"settings":
@@ -296,11 +618,15 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 108.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "opengl (OSX)",
 	"project": "opengl.sublime-project",
 	"replace":
 	{

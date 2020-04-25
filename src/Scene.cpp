@@ -22,11 +22,11 @@ void Scene::addCamera(shared_ptr<Camera> camera) {
 
 void Scene::addChild(shared_ptr<Node> node) {
     _root->addChild(node);
-    node->onEnter(this);
+    node->onAddToScene(this);
 }
 
 void Scene::removeChild(std::shared_ptr<Node> node) {
-    node->onExit(this);
+    node->onRemoveFromScene(this);
     _root->removeChild(node);
 }
 void Scene::update() {

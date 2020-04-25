@@ -22,8 +22,8 @@ class Light : public Node {
    public:
     static std::shared_ptr<Light> create(const std::string& name, LightType type);
     Light(const std::string& name, LightType type);
-    void onEnter(Scene* scene) override;
-    void onExit(Scene* scene) override;
+    void onAddToScene(Scene* scene) override;
+    void onRemoveFromScene(Scene* scene) override;
 
     std::string getLightName() { return _lightName; }
     void setLightName(const std::string& v) { _lightName = v; }

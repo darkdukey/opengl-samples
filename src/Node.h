@@ -15,12 +15,9 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     std::vector<std::shared_ptr<Node>> _children;
     std::shared_ptr<Node> _parent;
     glm::vec3 _pos;
-    float _rotX;
-    float _rotY;
-    float _rotZ;
-    float _scaleX;
-    float _scaleY;
-    float _scaleZ;
+    glm::vec3 _rot;
+    glm::vec3 _scale;
+    Scene* _scene;
 
    public:
     static std::shared_ptr<Node> create();
@@ -29,8 +26,8 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     virtual void update();
     virtual void draw();
 
-    virtual void onEnter(Scene* scene);
-    virtual void onExit(Scene* scene);
+    virtual void onAddToScene(Scene* scene);
+    virtual void onRemoveFromScene(Scene* scene);
 
     std::shared_ptr<Node> getPtr() { return shared_from_this(); }
     std::shared_ptr<Node> getParent() { return _parent; }
@@ -47,15 +44,15 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     float getX() { return _pos.x; }
     float getY() { return _pos.y; }
     float getZ() { return _pos.z; }
-    void rotX(float v) { _rotX = v; }
-    void rotY(float v) { _rotY = v; }
-    void rotZ(float v) { _rotZ = v; }
-    void rotByX(float v) { _rotX += v; }
-    void rotByY(float v) { _rotY += v; }
-    void rotByZ(float v) { _rotZ += v; }
-    float getRotX() { return _rotX; }
-    float getRotY() { return _rotY; }
-    float getRotZ() { return _rotZ; }
+    void rotX(float v) { _rot.x = v; }
+    void rotY(float v) { _rot.y = v; }
+    void rotZ(float v) { _rot.z = v; }
+    void rotByX(float v) { _rot.x += v; }
+    void rotByY(float v) { _rot.y += v; }
+    void rotByZ(float v) { _rot.z += v; }
+    float getRotX() { return _rot.x; }
+    float getRotY() { return _rot.y; }
+    float getRotZ() { return _rot.z; }
 
    private:
     void setParent(std::shared_ptr<Node> v) { _parent = v; }

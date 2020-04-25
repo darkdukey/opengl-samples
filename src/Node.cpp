@@ -12,12 +12,9 @@ shared_ptr<Node> Node::create() {
 Node::Node()
     : _graphics(nullptr),
       _pos(0),
-      _rotX(0),
-      _rotY(0),
-      _rotZ(0),
-      _scaleX(1),
-      _scaleY(1),
-      _scaleZ(1) {
+      _rot(0),
+      _scale(1),
+      _scene(nullptr) {
     _transform = glm::mat4(1.0f);
 }
 
@@ -27,10 +24,10 @@ Node::~Node() {
 
 void Node::update() {
     _transform = glm::translate(glm::mat4(1.0f), _pos);
-    _transform = glm::rotate(_transform, glm::radians(_rotX), glm::vec3(1, 0, 0));
-    _transform = glm::rotate(_transform, glm::radians(_rotY), glm::vec3(0, 1, 0));
-    _transform = glm::rotate(_transform, glm::radians(_rotZ), glm::vec3(0, 0, 1));
-    _transform = glm::scale(_transform, glm::vec3(_scaleX, _scaleY, _scaleZ));
+    _transform = glm::rotate(_transform, glm::radians(_rot.x), glm::vec3(1, 0, 0));
+    _transform = glm::rotate(_transform, glm::radians(_rot.y), glm::vec3(0, 1, 0));
+    _transform = glm::rotate(_transform, glm::radians(_rot.z), glm::vec3(0, 0, 1));
+    _transform = glm::scale(_transform, _scale);
 
     auto parent = getParent();
     if (parent != nullptr) {
@@ -42,16 +39,18 @@ void Node::update() {
     }
 }
 
-void Node::onEnter(Scene* scene) {
+void Node::onAddToScene(Scene* scene) {
+    _scene = scene;
     for (auto ch : _children) {
-        ch->onEnter(scene);
+        ch->onAddToScene(scene);
     }
 }
 
-void Node::onExit(Scene* scene) {
+void Node::onRemoveFromScene(Scene* scene) {
     for (auto ch : _children) {
-        ch->onExit(scene);
+        ch->onRemoveFromScene(scene);
     }
+    _scene = nullptr;
 }
 
 void Node::draw() {
@@ -67,6 +66,9 @@ void Node::draw() {
 void Node::addChild(shared_ptr<Node> child) {
     child->setParent(shared_from_this());
     _children.push_back(child);
+    if (_scene) {
+        onAddToScene(_scene);
+    }
 }
 
 void Node::removeChild(shared_ptr<Node> child) {
@@ -74,5 +76,8 @@ void Node::removeChild(shared_ptr<Node> child) {
     if (pos != _children.end()) {
         _children.erase(pos);
         child->setParent(nullptr);
+        if (_scene) {
+            onRemoveFromScene(_scene);
+        }
     }
 }
