@@ -8,7 +8,7 @@ using namespace std;
 Mesh::Mesh(
     vector<Vertex>& vertices,
     vector<uint>& indices,
-    std::map<std::string, std::string>& samplerMap) {
+    map<string, string>& samplerMap) {
     _vertices = vertices;
     _indices = indices;
     _graphics = make_shared<Graphics>("lit");

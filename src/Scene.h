@@ -4,13 +4,14 @@
 #include <vector>
 
 #include "LightManager.h"
-#include "Node.h"
 #include "common.h"
 
 class Camera;
-class Scene : public Node {
+class Node;
+class Scene {
    private:
     std::shared_ptr<Camera> _camera;
+    std::shared_ptr<Node> _root;
     LightManager _lightManager;
 
    public:
@@ -18,7 +19,11 @@ class Scene : public Node {
     Scene();
     ~Scene();
     void addCamera(std::shared_ptr<Camera> camera);
+    void addChild(std::shared_ptr<Node> node);
+    void removeChild(std::shared_ptr<Node> node);
+    void update();
     void draw();
 
     void addLight(std::shared_ptr<Light> light);
+    void removeLight(std::shared_ptr<Light> light);
 };

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-std::shared_ptr<Node> Node::create() {
+shared_ptr<Node> Node::create() {
     return make_shared<Node>();
 }
 
@@ -39,6 +39,18 @@ void Node::update() {
 
     for (auto& c : _children) {
         c->update();
+    }
+}
+
+void Node::onEnter(Scene* scene) {
+    for (auto ch : _children) {
+        ch->onEnter(scene);
+    }
+}
+
+void Node::onExit(Scene* scene) {
+    for (auto ch : _children) {
+        ch->onExit(scene);
     }
 }
 

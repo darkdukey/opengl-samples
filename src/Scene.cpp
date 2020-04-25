@@ -10,24 +10,38 @@ shared_ptr<Scene> Scene::create() {
 }
 
 Scene::Scene() {
+    _root = Node::create();
 }
 
 Scene::~Scene() {
-    _children.clear();
 }
 
 void Scene::addCamera(shared_ptr<Camera> camera) {
     _camera = camera;
 }
 
+void Scene::addChild(shared_ptr<Node> node) {
+    _root->addChild(node);
+    node->onEnter(this);
+}
+
+void Scene::removeChild(std::shared_ptr<Node> node) {
+    node->onExit(this);
+    _root->removeChild(node);
+}
+void Scene::update() {
+    _root->update();
+}
 void Scene::draw() {
-    for (auto ch : _children) {
-        ch->draw();
-    }
+    _root->draw();
     Renderer::getInstance()->draw(_camera, &_lightManager);
 }
 
-void Scene::addLight(std::shared_ptr<Light> light) {
+void Scene::addLight(shared_ptr<Light> light) {
     //TODO: find a way to integrate this logic into scene graph
     _lightManager.addLight(light);
+}
+
+void Scene::removeLight(shared_ptr<Light> light) {
+    _lightManager.removeLight(light);
 }

@@ -24,7 +24,7 @@ vector<uint> indices = {
     1, 2, 3   // second triangle
 };
 
-shared_ptr<Sprite> Sprite::create(const std::string& filename) {
+shared_ptr<Sprite> Sprite::create(const string& filename) {
     return make_shared<Sprite>(filename);
 }
 

@@ -1,13 +1,14 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <memory>
 
 #include "Graphics.h"
 #include "common.h"
+#include "shared_helper.h"
 //TODO: change to ECS architecture
 
-class Node : public std::enable_shared_from_this<Node> {
+class Scene;
+class Node : public inheritable_enable_shared_from_this<Node> {
    protected:
     std::shared_ptr<Graphics> _graphics;
     glm::mat4 _transform;
@@ -27,6 +28,9 @@ class Node : public std::enable_shared_from_this<Node> {
     virtual ~Node();
     virtual void update();
     virtual void draw();
+
+    virtual void onEnter(Scene* scene);
+    virtual void onExit(Scene* scene);
 
     std::shared_ptr<Node> getPtr() { return shared_from_this(); }
     std::shared_ptr<Node> getParent() { return _parent; }

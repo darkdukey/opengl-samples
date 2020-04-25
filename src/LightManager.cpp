@@ -18,7 +18,7 @@ LightManager::~LightManager() {
     _lights.clear();
 }
 
-void LightManager::addLight(std::shared_ptr<Light> light) {
+void LightManager::addLight(shared_ptr<Light> light) {
     _lights.push_back(light);
 
     switch (light->getLightType()) {
@@ -37,7 +37,7 @@ void LightManager::addLight(std::shared_ptr<Light> light) {
     }
 }
 
-void LightManager::doRemove(std::vector<std::shared_ptr<Light>>& arr, std::shared_ptr<Light> light) {
+void LightManager::doRemove(vector<shared_ptr<Light>>& arr, shared_ptr<Light> light) {
     auto pos = find(arr.begin(), arr.end(), light);
     if (pos != arr.end()) {
         arr.erase(pos);

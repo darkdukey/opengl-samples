@@ -31,7 +31,7 @@ vector<uint> cube_indices =
         3, 2, 7, 7, 2, 6,
         4, 5, 0, 0, 5, 1};
 
-shared_ptr<Cube> Cube::create(const std::string& filename) {
+shared_ptr<Cube> Cube::create(const string& filename) {
     return make_shared<Cube>(filename);
 }
 

@@ -14,18 +14,18 @@
 using namespace std;
 using namespace NT;
 
-std::shared_ptr<Model> Model::create(const std::string &filename) {
+shared_ptr<Model> Model::create(const string &filename) {
     return make_shared<Model>(filename);
 }
 
-Model::Model(const std::string &path) : _path(path) {
+Model::Model(const string &path) : _path(path) {
 }
 
 void Model::load() {
     loadModel(_path);
 }
 
-void Model::loadModel(const std::string &path) {
+void Model::loadModel(const string &path) {
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {

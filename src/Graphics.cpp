@@ -14,7 +14,7 @@ Graphics::Graphics(const string& shader_name) {
 Graphics::~Graphics() {
 }
 
-void Graphics::addTexture(const std::string& name, const std::string& type) {
+void Graphics::addTexture(const string& name, const string& type) {
     if (_textures.find(name) == _textures.end()) {
         _textures[name] = TextureManager::getInstance()->get(name);
         _textureUniformMap[name] = type;

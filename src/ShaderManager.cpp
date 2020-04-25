@@ -1,5 +1,8 @@
 #include "ShaderManager.h"
+
 #include "Shader.h"
+
+using namespace std;
 
 ShaderManager* ShaderManager::s_instance = nullptr;
 
@@ -14,7 +17,7 @@ ShaderManager::~ShaderManager() {
     _cacheMap.clear();
 }
 
-Shader* ShaderManager::get(const std::string& name) {
+Shader* ShaderManager::get(const string& name) {
     if (_cacheMap.find(name) != _cacheMap.end()) {
         return _cacheMap[name];
     } else {

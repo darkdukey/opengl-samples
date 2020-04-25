@@ -71,7 +71,7 @@ bool FileUtil::loadFile(const string& filename, vector<unsigned char>& data) {
     return true;
 }
 
-std::string FileUtil::join(const std::string& a, const std::string& b) {
+string FileUtil::join(const string& a, const string& b) {
     string res;
     if (a.back() != separator()) {
         res = a + separator() + b;
