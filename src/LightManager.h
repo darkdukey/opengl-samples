@@ -28,7 +28,7 @@ class LightManager {
     const std::string NamePoint = "pointLight";
     const std::string NameSpot = "spotLight";
     const std::string NameAmbientColor = "ambientColor";
-    const int MAX_Direct_Light = 6;
+    const int MAX_Direct_Light = 2;
     const int MAX_Point_Light = 6;
     const int MAX_Spot_Light = 6;
 

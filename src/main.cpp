@@ -50,14 +50,28 @@ int main(int argc, char const* argv[]) {
 
     auto sc = Scene::create();
 
-    auto root = Node::create();
-    sc->addChild(root);
-
     // Create light
     auto directLight = Light::create("sun", Directional);
-    directLight->position(0, 20, 10);
-    directLight->setColor(0.4, 0, 0);
+    directLight->position(0, -2, -4);
+    directLight->setColor(0.2, 0.2, 0.2);
     sc->addChild(directLight);
+
+    //Rotating point light
+    auto light_root = Node::create();
+    light_root->position(0, 12, 0);
+
+    auto point_light = Light::create("point", Point);
+    point_light->position(0, 0, 5);
+    point_light->setColor(0.8, 0.8, 0.8);
+
+    light_root->addChild(point_light);
+
+    //Use cube to indicate light postition
+    auto cb1 = Cube::create("textures/wall.jpg");
+    cb1->position(0, 0, 5);
+    light_root->addChild(cb1);
+
+    sc->addChild(light_root);
 
     // auto mod = Model::create("models/room/model.gltf");
     auto mod = Model::create("models/nanosuit/scene.gltf");
@@ -70,9 +84,6 @@ int main(int argc, char const* argv[]) {
     // auto sp2 = Sprite::create("textures/wall.jpg");
     // sp2->x(-0.5f);
     // sc->addChild(sp2);
-
-    auto cb1 = Cube::create("textures/wall.jpg");
-    root->addChild(cb1);
 
     auto cam = Camera::create(800, 600);
     cam->position(0, 20, 10);
@@ -90,8 +101,8 @@ int main(int argc, char const* argv[]) {
 
         sc->draw();
         sc->update();
-        root->rotByY(0.1f);
-        mod->rotByY(-0.1f);
+        // mod->rotByY(-0.1f);
+        light_root->rotByY(0.5f);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

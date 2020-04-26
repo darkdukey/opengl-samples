@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 using namespace std;
 
@@ -33,6 +34,8 @@ void Node::update() {
     if (parent != nullptr) {
         _transform = parent->getTransform() * _transform;
     }
+
+    glm::decompose(_transform, _worldScale, _worldRot, _worldPos, _worldSkew, _perspective);
 
     for (auto& c : _children) {
         c->update();

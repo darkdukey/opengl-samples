@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include "Graphics.h"
 #include "common.h"
@@ -18,6 +19,12 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     glm::vec3 _rot;
     glm::vec3 _scale;
     Scene* _scene;
+    // World
+    glm::vec3 _worldScale;
+    glm::quat _worldRot;
+    glm::vec3 _worldPos;
+    glm::vec3 _worldSkew;
+    glm::vec4 _perspective;
 
    public:
     static std::shared_ptr<Node> create();
@@ -38,6 +45,7 @@ class Node : public inheritable_enable_shared_from_this<Node> {
 
     void position(float x, float y, float z) { _pos = {x, y, z}; }
     glm::vec3 getPosition() { return _pos; }
+    glm::vec3 getWorldPos() { return _worldPos; };
     void x(float x) { _pos.x = x; }
     void y(float y) { _pos.y = y; }
     void z(float z) { _pos.z = z; }

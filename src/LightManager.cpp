@@ -76,15 +76,29 @@ void LightManager::drawLights(Shader* shader) {
 
         count = min((int)_directLights.size(), MAX_Direct_Light);
 
-        // Diffuse/Point/Spot light
+        // Directional
         for (int i = 0; i < count; i++) {
             auto l = _directLights[i];
             pos.push_back(l->getPosition());
             color.push_back(l->getColor());
         }
 
-        shader->setVec3Array(NameDirectional + "Pos", pos);
+        shader->setVec3Array(NameDirectional + "Dir", pos);
         shader->setVec3Array(NameDirectional + "Color", color);
         shader->setInt(NameDirectional + "Count", count);
+
+        //Point/Spot light
+        pos.clear();
+        color.clear();
+        count = min((int)_pointLights.size(), MAX_Point_Light);
+        for (int i = 0; i < count; i++) {
+            auto l = _pointLights[i];
+            pos.push_back(l->getWorldPos());
+            color.push_back(l->getColor());
+        }
+
+        shader->setVec3Array(NamePoint + "Pos", pos);
+        shader->setVec3Array(NamePoint + "Color", color);
+        shader->setInt(NamePoint + "Count", count);
     }
 }
