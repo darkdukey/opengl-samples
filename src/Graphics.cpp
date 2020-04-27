@@ -6,7 +6,9 @@
 #include "TextureManager.h"
 using namespace std;
 
-Graphics::Graphics(const string& shader_name) {
+Graphics::Graphics(const string& shader_name)
+    : _VAO(0),
+      _indexSize(0) {
     _cmd = Renderer::getInstance()->getCmd();
     _cmd->setShaderName(shader_name);
 }
@@ -23,9 +25,10 @@ void Graphics::addTexture(const string& name, const string& type) {
 
 void Graphics::draw(const glm::mat4& transform) {
     _cmd->setTransform(transform);
-    _cmd->setMap(_textureUniformMap);
+    _cmd->setTextureUniform(_textureUniformMap);
     _cmd->setVAO(_VAO);
     _cmd->setCount(_indexSize);
+    _cmd->setUniform(_vec3Map);
 }
 
 void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& indices) {
@@ -60,4 +63,8 @@ void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
     glBindVertexArray(0);
+}
+
+void Graphics::setUniform(const string& name, glm::vec3 value) {
+    _vec3Map[name] = value;
 }

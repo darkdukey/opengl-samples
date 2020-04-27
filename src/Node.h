@@ -43,7 +43,7 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     void addChild(std::shared_ptr<Node> child);
     void removeChild(std::shared_ptr<Node> child);
 
-    void position(float x, float y, float z) { _pos = {x, y, z}; }
+    virtual void position(float x, float y, float z) { _pos = {x, y, z}; }
     glm::vec3 getPosition() { return _pos; }
     glm::vec3 getWorldPos() { return _worldPos; };
     void x(float x) { _pos.x = x; }

@@ -31,16 +31,30 @@ vector<uint> cube_indices =
         3, 2, 7, 7, 2, 6,
         4, 5, 0, 0, 5, 1};
 
-shared_ptr<Cube> Cube::create(const string& filename) {
-    return make_shared<Cube>(filename);
+shared_ptr<Cube> Cube::create(const string& shaderName) {
+    return make_shared<Cube>(shaderName);
 }
 
-Cube::Cube(const string& filename) {
-    _graphics = make_shared<Graphics>("basic");
+shared_ptr<Cube> Cube::create(const string& shaderName, const string& filename) {
+    return make_shared<Cube>(shaderName, filename);
+}
+
+Cube::Cube(const string& shaderName, const string& filename) {
+    _graphics = make_shared<Graphics>(shaderName);
     _graphics->addTexture(filename);
     //TODO: create buffer using buffer mananger
     _graphics->createBuffer(cube_vertices, cube_indices);
 }
 
+Cube::Cube(const string& shaderName) {
+    _graphics = make_shared<Graphics>(shaderName);
+    //TODO: create buffer using buffer mananger
+    _graphics->createBuffer(cube_vertices, cube_indices);
+}
+
 Cube::~Cube() {
+}
+
+void Cube::setColorTint(const glm::vec3& color) {
+    _graphics->setUniform("colorTint", color);
 }

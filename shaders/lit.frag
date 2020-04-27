@@ -5,6 +5,9 @@ in vec3 Normal;
 
 out vec4 FragColor;
 
+// Camera Position
+uniform vec3 viewPos;
+
 uniform vec3 ambientColor;
 uniform vec3 directLightDir[2];
 uniform vec3 directLightColor[2];
@@ -26,21 +29,34 @@ void main()
 
     //Calculate diffuse color for each direct light
     vec3 lightDir;
+    vec3 viewDir;
     vec3 diffuseColor = vec3(0);
+    vec3 specularColor = vec3(0);
     vec4 baseColor = texture(texture_diffuse0, TexCoord);
-
+    //TODO: define this base on material file
+    float specularStrength = 0.5;
+    int shininess = 32;
+    
+    // Directional light
     for(int i=0;i<directLightCount;i++){
         lightDir = normalize(directLightDir[i]);
         float diff = max(dot(norm, -lightDir), 0.0);
         diffuseColor += diff * directLightColor[i];
     }
 
+    // Point light
     for(int i=0;i<pointLightCount;i++){
+        //Diffuse color
         lightDir = normalize(pointLightPos[i] - FragPos);
         float diff = max(dot(norm, lightDir), 0.0);
         diffuseColor += diff * pointLightColor[i];
+        //Specular color
+        viewDir = normalize(viewPos - FragPos);
+        vec3 reflectDir = reflect(lightDir, norm);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+        specularColor += specularStrength * spec * pointLightColor[i]; 
     }
 
-    vec3 result = (ambientColor + diffuseColor) * baseColor.xyz;
+    vec3 result = (ambientColor + diffuseColor + specularColor) * baseColor.xyz;
     FragColor = vec4(result, 1.0);
 }

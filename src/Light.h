@@ -17,13 +17,14 @@ class Light : public Node {
     std::string _lightName;
     LightType _lightType;
     glm::vec3 _color;
-    bool _isInScene;
+    bool _hasDebugShape;
 
    public:
     static std::shared_ptr<Light> create(const std::string& name, LightType type);
     Light(const std::string& name, LightType type);
     void onAddToScene(Scene* scene) override;
     void onRemoveFromScene(Scene* scene) override;
+    void enableDebugShape();
 
     std::string getLightName() { return _lightName; }
     void setLightName(const std::string& v) { _lightName = v; }

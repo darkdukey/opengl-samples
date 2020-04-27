@@ -8,23 +8,27 @@
 
 #include "common.h"
 
-using UniformMap = std::map<std::string, std::string>;
+using UniformTextureMap = std::map<std::string, std::string>;
+using UniformVec3Map = std::map<std::string, glm::vec3>;
 
 class DrawCmd {
     glm::mat4 _transform;
     std::string _shaderName;
     //TODO: create material system
-    UniformMap _textureUniformMap;
+    UniformTextureMap _textureUniformMap;
     uint _vao;
     uint _count;
+    UniformVec3Map _uniformVec3Map;
 
    public:
     void setTransform(const glm::mat4& t) { _transform = t; }
     glm::mat4& getTransform() { return _transform; }
     std::string getShaderName() { return _shaderName; }
     void setShaderName(const std::string& name) { _shaderName = name; }
-    UniformMap getUniformMap() { return _textureUniformMap; }
-    void setMap(const UniformMap& uniformMap) { _textureUniformMap = uniformMap; }
+    void setTextureUniform(const UniformTextureMap& uniformMap) { _textureUniformMap = uniformMap; }
+    UniformTextureMap getTextureUniform() { return _textureUniformMap; }
+    void setUniform(const UniformVec3Map& value) { _uniformVec3Map = value; }
+    UniformVec3Map getVec3Uniform() { return _uniformVec3Map; }
     uint getVAO() { return _vao; }
     void setVAO(uint v) { _vao = v; }
     uint getCount() { return _count; }

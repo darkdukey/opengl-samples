@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "Cube.h"
 #include "Scene.h"
 
 using namespace std;
@@ -13,7 +14,8 @@ shared_ptr<Light> Light::create(const string& name, LightType type) {
 Light::Light(const string& name, LightType type)
     : _lightName(name),
       _lightType(type),
-      _color(0.2f) {
+      _color(0.2f),
+      _hasDebugShape(false) {
 }
 
 void Light::onAddToScene(Scene* scene) {
@@ -24,4 +26,13 @@ void Light::onAddToScene(Scene* scene) {
 void Light::onRemoveFromScene(Scene* scene) {
     scene->removeLight(Node::downcasted_shared_from_this<Light>());
     Node::onRemoveFromScene(scene);
+}
+
+void Light::enableDebugShape() {
+    if (!_hasDebugShape) {
+        _hasDebugShape = true;
+        auto cube = Cube::create("solid");
+        cube->setColorTint(_color);
+        addChild(cube);
+    }
 }

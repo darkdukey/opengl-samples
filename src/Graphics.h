@@ -14,6 +14,7 @@ class Graphics {
     // Shader* _shader;
     std::map<std::string, Texture*> _textures;
     std::map<std::string, std::string> _textureUniformMap;
+    std::map<std::string, glm::vec3> _vec3Map;
     uint _VAO;
     uint _indexSize;
     DrawCmd* _cmd;
@@ -25,4 +26,5 @@ class Graphics {
     void addTexture(const std::string& name, const std::string& type = "texture0");
     void draw(const glm::mat4& transform);
     void createBuffer(const std::vector<Vertex>& vertices, const std::vector<uint>& indices);
+    void setUniform(const std::string& name, glm::vec3 value);
 };

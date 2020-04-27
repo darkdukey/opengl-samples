@@ -54,12 +54,18 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
         s->setMat4("transform", data.getTransform());
         s->setMat4("proj", cam->getProj());
         s->setMat4("view", cam->getView());
+        s->setVec3("viewPos", cam->getWorldPos());
+
+        // Set vec3 uniform
+        for (auto& it : data.getVec3Uniform()) {
+            s->setVec3(it.first, it.second);
+        }
 
         // Update Light
         lightMgr->drawLights(s);
 
         int c = 0;
-        for (auto& it : data.getUniformMap()) {
+        for (auto& it : data.getTextureUniform()) {
             auto tex = TextureManager::getInstance()->get(it.first);
             glActiveTexture(GL_TEXTURE0 + c);
             tex->enable(GL_TEXTURE0 + c);

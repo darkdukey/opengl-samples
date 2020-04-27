@@ -5,6 +5,15 @@
 
 #include "common.h"
 
+enum MeshType {
+    //Lit object is affected by lighting and use second vec3 as normal
+    Lit,
+    //Unlit object is not affected by lighting and use second vec3 as color
+    Unlit,
+    //Solid object is unlit and don't have texture
+    Solid
+};
+
 struct Vertex {
     // position
     glm::vec3 Position;

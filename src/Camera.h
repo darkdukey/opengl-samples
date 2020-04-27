@@ -3,30 +3,29 @@
 #include <glm/glm.hpp>
 #include <memory>
 #include "common.h"
+#include "Node.h"
 
 enum ProjMode {
     Perspective,
     Orthographic
 };
 
-class Camera {
+class Camera : public Node {
    private:
     int _width;
     int _height;
     glm::mat4 _proj;
     glm::mat4 _view;
-    glm::vec3 _pos;
     ProjMode _mode = Perspective;
 
    public:
     static std::shared_ptr<Camera> create(int width, int height);
     Camera(int width, int height);
     ~Camera();
-    void position(float x, float y, float z);
     void lookat(float x, float y, float z);
     void viewport(int width, int height);
     void setMode(ProjMode mode) { _mode = mode; }
-
+    void position(float x, float y, float z) override;
     glm::mat4& getProj() { return _proj; }
     glm::mat4& getView() { return _view; }
 

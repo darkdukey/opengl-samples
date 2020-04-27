@@ -14,6 +14,7 @@
 #include "common.h"
 
 using namespace std;
+using namespace glm;
 using namespace NT;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -62,14 +63,10 @@ int main(int argc, char const* argv[]) {
 
     auto point_light = Light::create("point", Point);
     point_light->position(0, 0, 5);
-    point_light->setColor(0.8, 0.8, 0.8);
+    point_light->setColor(0.6, 0.6, 0.6);
+    point_light->enableDebugShape();
 
     light_root->addChild(point_light);
-
-    //Use cube to indicate light postition
-    auto cb1 = Cube::create("textures/wall.jpg");
-    cb1->position(0, 0, 5);
-    light_root->addChild(cb1);
 
     sc->addChild(light_root);
 
