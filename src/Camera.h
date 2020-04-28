@@ -2,8 +2,9 @@
 
 #include <glm/glm.hpp>
 #include <memory>
-#include "common.h"
+
 #include "Node.h"
+#include "common.h"
 
 enum ProjMode {
     Perspective,
@@ -26,6 +27,9 @@ class Camera : public Node {
     void viewport(int width, int height);
     void setMode(ProjMode mode) { _mode = mode; }
     void position(float x, float y, float z) override;
+    void onAddToScene(Scene* scene) override;
+    void onRemoveFromScene(Scene* scene) override;
+
     glm::mat4& getProj() { return _proj; }
     glm::mat4& getView() { return _view; }
 

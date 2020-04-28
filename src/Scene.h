@@ -10,6 +10,7 @@ class Camera;
 class Node;
 class Scene {
     friend class Light;
+    friend class Camera;
 
    private:
     std::shared_ptr<Camera> _camera;
@@ -19,12 +20,13 @@ class Scene {
    private:
     void addLight(std::shared_ptr<Light> light);
     void removeLight(std::shared_ptr<Light> light);
+    void addCamera(std::shared_ptr<Camera> camera);
+    void removeCamera(std::shared_ptr<Camera> camera);
 
    public:
     static std::shared_ptr<Scene> create();
     Scene();
     ~Scene();
-    void addCamera(std::shared_ptr<Camera> camera);
     void addChild(std::shared_ptr<Node> node);
     void removeChild(std::shared_ptr<Node> node);
     void update();

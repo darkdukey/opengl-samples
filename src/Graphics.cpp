@@ -11,6 +11,7 @@ Graphics::Graphics(const string& shader_name)
       _indexSize(0) {
     _cmd = Renderer::getInstance()->getCmd();
     _cmd->setShaderName(shader_name);
+    setMaterial({{0.25f, 0.20725f, 0.20725f}, {1.0f, 0.829f, 0.829f}, {0.296648f, 0.296648f, 0.296648f}, 11.26f});
 }
 
 Graphics::~Graphics() {
@@ -29,6 +30,7 @@ void Graphics::draw(const glm::mat4& transform) {
     _cmd->setVAO(_VAO);
     _cmd->setCount(_indexSize);
     _cmd->setUniform(_vec3Map);
+    _cmd->setUniform(_floatMap);
 }
 
 void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& indices) {
@@ -67,4 +69,16 @@ void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& 
 
 void Graphics::setUniform(const string& name, glm::vec3 value) {
     _vec3Map[name] = value;
+}
+
+void Graphics::setUniform(const std::string& name, float value) {
+    _floatMap[name] = value;
+}
+
+void Graphics::setMaterial(const Material& m) {
+    _mat = m;
+    _vec3Map["material.ambient"] = m.ambient;
+    _vec3Map["material.diffuse"] = m.diffuse;
+    _vec3Map["material.specular"] = m.specular;
+    _floatMap["material.shininess"] = m.shininess;
 }

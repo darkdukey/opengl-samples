@@ -7,9 +7,7 @@
 #include <vector>
 
 #include "common.h"
-
-using UniformTextureMap = std::map<std::string, std::string>;
-using UniformVec3Map = std::map<std::string, glm::vec3>;
+#include "types.h"
 
 class DrawCmd {
     glm::mat4 _transform;
@@ -19,6 +17,7 @@ class DrawCmd {
     uint _vao;
     uint _count;
     UniformVec3Map _uniformVec3Map;
+    UniformFloatMap _uniformFloatMap;
 
    public:
     void setTransform(const glm::mat4& t) { _transform = t; }
@@ -28,7 +27,9 @@ class DrawCmd {
     void setTextureUniform(const UniformTextureMap& uniformMap) { _textureUniformMap = uniformMap; }
     UniformTextureMap getTextureUniform() { return _textureUniformMap; }
     void setUniform(const UniformVec3Map& value) { _uniformVec3Map = value; }
+    void setUniform(const UniformFloatMap& value) { _uniformFloatMap = value; }
     UniformVec3Map getVec3Uniform() { return _uniformVec3Map; }
+    UniformFloatMap getFloatUniform() { return _uniformFloatMap; }
     uint getVAO() { return _vao; }
     void setVAO(uint v) { _vao = v; }
     uint getCount() { return _count; }

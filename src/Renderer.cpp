@@ -61,6 +61,11 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
             s->setVec3(it.first, it.second);
         }
 
+        // Set float uniform
+        for (auto& it : data.getFloatUniform()) {
+            s->setFloat(it.first, it.second);
+        }
+
         // Update Light
         lightMgr->drawLights(s);
 
@@ -71,6 +76,11 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
             tex->enable(GL_TEXTURE0 + c);
             s->setInt(it.second, c);
             c++;
+        }
+        if (c == 0) {
+            s->setBool("no_texture", true);
+        } else {
+            s->setBool("no_texture", false);
         }
 
         glBindVertexArray(data.getVAO());

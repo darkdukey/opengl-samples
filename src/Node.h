@@ -61,6 +61,7 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     float getRotX() { return _rot.x; }
     float getRotY() { return _rot.y; }
     float getRotZ() { return _rot.z; }
+    void scale(float x, float y, float z) { _scale = {x, y, z}; }
 
    private:
     void setParent(std::shared_ptr<Node> v) { _parent = v; }

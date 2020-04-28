@@ -10,8 +10,8 @@ using namespace std;
 using namespace NT;
 
 LightManager::LightManager() {
-    _ambientColor = {1.0f, 0.5f, 0.31f};
-    _ambientStrength = 0.2f;
+    _ambientColor = {0.0f, 0.0f, 0.0f};
+    _ambientStrength = 0.02f;
 }
 
 LightManager::~LightManager() {

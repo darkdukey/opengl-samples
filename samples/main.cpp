@@ -8,6 +8,7 @@
 #include "Cube.h"
 #include "Debug.h"
 #include "FileUtil.h"
+#include "LitCube.h"
 #include "Model.h"
 #include "Scene.h"
 #include "Sprite.h"
@@ -54,7 +55,7 @@ int main(int argc, char const* argv[]) {
     // Create light
     auto directLight = Light::create("sun", Directional);
     directLight->position(0, -2, -4);
-    directLight->setColor(0.2, 0.2, 0.2);
+    directLight->setColor(0.1, 0.1, 0.1);
     sc->addChild(directLight);
 
     //Rotating point light
@@ -63,17 +64,26 @@ int main(int argc, char const* argv[]) {
 
     auto point_light = Light::create("point", Point);
     point_light->position(0, 0, 5);
-    point_light->setColor(0.6, 0.6, 0.6);
+    point_light->setColor(0.5, 0.5, 0.5);
     point_light->enableDebugShape();
-
     light_root->addChild(point_light);
-
     sc->addChild(light_root);
 
     // auto mod = Model::create("models/room/model.gltf");
     auto mod = Model::create("models/nanosuit/scene.gltf");
     mod->load();
-    sc->addChild(mod);
+    // sc->addChild(mod);
+
+    Material mat;
+    mat.ambient = {1.0f, 0.5f, 0.31f};
+    mat.diffuse = {1.0f, 0.5f, 0.31f};
+    mat.specular = {0.5f, 0.5f, 0.5f};
+    mat.shininess = 32.0f;
+    auto cb1 = LitCube::create("material");
+    cb1->position(0, 12, 0);
+    cb1->scale(4, 4, 4);
+    // cb1->setMaterial(mat);
+    sc->addChild(cb1);
 
     // auto sp1 = Sprite::create("textures/awesomeface.png");
     // sp1->x(0.5f);
@@ -83,9 +93,9 @@ int main(int argc, char const* argv[]) {
     // sc->addChild(sp2);
 
     auto cam = Camera::create(800, 600);
-    cam->position(0, 20, 10);
-    cam->lookat(0, 10, 0);
-    sc->addCamera(cam);
+    cam->position(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
 
     //TODO: move this to renderer
     glEnable(GL_DEPTH_TEST);

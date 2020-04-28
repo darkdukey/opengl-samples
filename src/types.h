@@ -5,6 +5,10 @@
 
 #include "common.h"
 
+using UniformTextureMap = std::map<std::string, std::string>;
+using UniformVec3Map = std::map<std::string, glm::vec3>;
+using UniformFloatMap = std::map<std::string, float>;
+
 enum MeshType {
     //Lit object is affected by lighting and use second vec3 as normal
     Lit,
@@ -12,6 +16,13 @@ enum MeshType {
     Unlit,
     //Solid object is unlit and don't have texture
     Solid
+};
+
+struct Material {
+    glm::vec3 ambient;
+    glm::vec3 diffuse;
+    glm::vec3 specular;
+    float shininess;
 };
 
 struct Vertex {

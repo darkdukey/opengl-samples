@@ -1,6 +1,11 @@
 #include "Camera.h"
+
 #include <glm/gtc/matrix_transform.hpp>
+
+#include "Scene.h"
+
 using namespace std;
+
 shared_ptr<Camera> Camera::create(int width, int height) {
     return make_shared<Camera>(width, height);
 }
@@ -19,6 +24,16 @@ void Camera::position(float x, float y, float z) {
     _pos.y = y;
     _pos.z = z;
     refresh();
+}
+
+void Camera::onAddToScene(Scene* scene) {
+    scene->addCamera(Node::downcasted_shared_from_this<Camera>());
+    Node::onAddToScene(scene);
+}
+
+void Camera::onRemoveFromScene(Scene* scene) {
+    scene->removeCamera(Node::downcasted_shared_from_this<Camera>());
+    Node::onRemoveFromScene(scene);
 }
 
 void Camera::lookat(float x, float y, float z) {

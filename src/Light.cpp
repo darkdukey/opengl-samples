@@ -31,7 +31,7 @@ void Light::onRemoveFromScene(Scene* scene) {
 void Light::enableDebugShape() {
     if (!_hasDebugShape) {
         _hasDebugShape = true;
-        auto cube = Cube::create("solid");
+        auto cube = Cube::create("solid_unlit");
         cube->setColorTint(_color);
         addChild(cube);
     }
