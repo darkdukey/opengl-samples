@@ -72,18 +72,18 @@ int main(int argc, char const* argv[]) {
     // auto mod = Model::create("models/room/model.gltf");
     auto mod = Model::create("models/nanosuit/scene.gltf");
     mod->load();
-    // sc->addChild(mod);
+    sc->addChild(mod);
 
-    Material mat;
-    mat.ambient = {1.0f, 0.5f, 0.31f};
-    mat.diffuse = {1.0f, 0.5f, 0.31f};
-    mat.specular = {0.5f, 0.5f, 0.5f};
-    mat.shininess = 32.0f;
-    auto cb1 = LitCube::create("material");
-    cb1->position(0, 12, 0);
-    cb1->scale(4, 4, 4);
+    // Material mat;
+    // mat.ambient = {1.0f, 0.5f, 0.31f};
+    // mat.diffuse = {1.0f, 0.5f, 0.31f};
+    // mat.specular = {0.5f, 0.5f, 0.5f};
+    // mat.shininess = 32.0f;
+    // auto cb1 = LitCube::create("material");
+    // cb1->position(0, 12, 0);
+    // cb1->scale(4, 4, 4);
     // cb1->setMaterial(mat);
-    sc->addChild(cb1);
+    // sc->addChild(cb1);
 
     // auto sp1 = Sprite::create("textures/awesomeface.png");
     // sp1->x(0.5f);

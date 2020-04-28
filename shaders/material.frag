@@ -56,7 +56,6 @@ vec3 calcMaterial(vec3 viewDir, vec3 lightDir, vec3 lightColor, vec3 norm, Mater
     vec3 diffuse = calcDiffuse(lightDir, lightColor, norm) * m.diffuse;
     vec3 specular = calcSpecular(viewDir, lightDir, lightColor, norm, m.shininess) * m.specular;
     return (ambient + diffuse + specular);
-    // return specular;
 }
 
 void main()

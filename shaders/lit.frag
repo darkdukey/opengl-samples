@@ -36,9 +36,15 @@ vec3 calcSpecular(vec3 viewDir, vec3 lightDir, vec3 lightColor, vec3 norm, float
     viewDir = normalize(viewDir);
     lightDir = normalize(lightDir);
 
-    vec3 reflectDir = reflect(lightDir, norm);
+    vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
     return (lightColor * (spec * strength)); 
+}
+
+vec3 calcMaterial(vec3 viewDir, vec3 lightDir, vec3 lightColor, vec3 norm, vec3 ambient, float strength, float shininess){
+    vec3 diffuse = calcDiffuse(lightDir, lightColor, norm);
+    vec3 specular = calcSpecular(viewDir, lightDir, lightColor, norm, strength, shininess);
+    return (ambient + diffuse + specular);
 }
 
 void main()
@@ -51,7 +57,8 @@ void main()
     vec4 baseColor = texture(texture_diffuse0, TexCoord);
     if(no_texture)
         baseColor = vec4(1);
-    
+    vec3 finalColor = vec3(0);
+
     //TODO: define this base on material file
     float specularStrength = 0.5;
     int shininess = 32;
@@ -60,17 +67,14 @@ void main()
     
     // Directional light
     for(int i=0;i<directLightCount;i++){
-        diffuseColor += calcDiffuse(-directLightDir[i], directLightColor[i], norm);
-        specularColor += calcSpecular(viewDir, -directLightDir[i], directLightColor[i], norm, specularStrength, shininess);
+        finalColor += calcMaterial(viewDir, -directLightDir[i], directLightColor[i], norm, ambientColor, specularStrength, shininess);
     }
 
     // Point light
     for(int i=0;i<pointLightCount;i++){
         vec3 lightDir = pointLightPos[i] - FragPos;
-        diffuseColor += calcDiffuse(lightDir, pointLightColor[i], norm);
-        specularColor += calcSpecular(viewDir, lightDir, pointLightColor[i], norm, specularStrength, shininess); 
+        finalColor += calcMaterial(viewDir, lightDir, pointLightColor[i], norm, ambientColor, specularStrength, shininess);
     }
-
-    vec3 result = (ambientColor + diffuseColor + specularColor) * baseColor.xyz;
-    FragColor = vec4(result, 1.0);
+    
+    FragColor = vec4(finalColor * baseColor.xyz, 1.0);
 }
