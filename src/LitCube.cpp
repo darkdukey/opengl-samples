@@ -1,5 +1,7 @@
 #include "LitCube.h"
 
+#include "Material.h"
+
 using namespace std;
 
 vector<Vertex> lit_cube_vertices = {

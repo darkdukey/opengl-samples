@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 
+#include "Material.h"
 #include "Node.h"
 #include "types.h"
 
@@ -16,8 +17,9 @@ class Mesh : public Node {
     /*  Functions  */
     Mesh(
         std::vector<Vertex>& vertices,
-        std::vector<uint>& indices,
-        std::map<std::string, std::string>& samplerMap);
+        std::vector<uint>& indices);
+
+    void setMaterial(const Material& m);
 
    private:
     /*  Functions    */

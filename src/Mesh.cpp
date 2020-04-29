@@ -7,13 +7,13 @@ using namespace std;
 
 Mesh::Mesh(
     vector<Vertex>& vertices,
-    vector<uint>& indices,
-    map<string, string>& samplerMap) {
+    vector<uint>& indices) {
     _vertices = vertices;
     _indices = indices;
     _graphics = make_shared<Graphics>("lit");
-    for (auto& it : samplerMap) {
-        _graphics->addTexture(it.first, it.second);
-    }
     _graphics->createBuffer(vertices, indices);
+}
+
+void Mesh::setMaterial(const Material& m) {
+    _graphics->setMaterial(m);
 }

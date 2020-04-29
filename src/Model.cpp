@@ -53,7 +53,6 @@ void Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     // data to fill
     vector<Vertex> vertices;
     vector<unsigned int> indices;
-    map<string, string> samplerMap;
 
     // Walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
@@ -91,42 +90,28 @@ void Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     }
     // process materials
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-    // LOG(debug) << "Name:" << material->GetName().C_Str();
-
-    // we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-    // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-    // Same applies to other texture as the following list summarizes:
-    // diffuse: texture_diffuseN
-    // specular: texture_specularN
-    // normal: texture_normalN
-
-    // 1. diffuse maps
-    loadMaterialTextures(samplerMap, material, aiTextureType_DIFFUSE, "texture_diffuse");
-    // 2. specular maps
-    loadMaterialTextures(samplerMap, material, aiTextureType_SPECULAR, "texture_specular");
-    // 3. normal maps
-    loadMaterialTextures(samplerMap, material, aiTextureType_HEIGHT, "texture_normal");
-    // 4. height maps
-    loadMaterialTextures(samplerMap, material, aiTextureType_AMBIENT, "texture_height");
+    // TODO: support normal map
+    // TODO: support height map
 
     // return a mesh object created from the extracted mesh data
-    auto m = make_shared<Mesh>(vertices, indices, samplerMap);
+    string diffuseMap = getTexture(material, aiTextureType_DIFFUSE);
+    string specularMap = getTexture(material, aiTextureType_SPECULAR);
+    // TODO: find out shininess value from model file
+    Material mat(diffuseMap, specularMap, 32.0f);
+    auto m = make_shared<Mesh>(vertices, indices);
+    m->setMaterial(mat);
     addChild(m);
 }
 
-void Model::loadMaterialTextures(
-    map<string, string> &samplerMap,
-    aiMaterial *mat,
-    aiTextureType type,
-    string typeName) {
+string Model::getTexture(aiMaterial *mat, aiTextureType type) {
     string img_path;
     auto count = mat->GetTextureCount(type);
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
+    for (unsigned int i = 0; i < count; i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
         //Make sure the texture path is under model folder
         img_path = FileUtil::join(_modelDir, str.C_Str());
-        samplerMap[img_path] = typeName + to_string(i);
-        LOG(debug) << typeName << i;
+        LOG(debug) << img_path << i;
     }
+    return img_path;
 }

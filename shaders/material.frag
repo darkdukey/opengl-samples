@@ -5,11 +5,10 @@ in vec3 Normal;
 
 out vec4 FragColor;
 
-
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    vec3 ambientValue;
+    vec3 diffuseValue;
+    vec3 specularValue;
     float shininess;
 }; 
 
@@ -52,9 +51,9 @@ vec3 calcSpecular(vec3 viewDir, vec3 lightDir, vec3 lightColor, vec3 norm, float
 }
 
 vec3 calcMaterial(vec3 viewDir, vec3 lightDir, vec3 lightColor, vec3 norm, Material m){
-    vec3 ambient = lightColor * m.ambient;
-    vec3 diffuse = calcDiffuse(lightDir, lightColor, norm) * m.diffuse;
-    vec3 specular = calcSpecular(viewDir, lightDir, lightColor, norm, m.shininess) * m.specular;
+    vec3 ambient = lightColor * m.ambientValue;
+    vec3 diffuse = calcDiffuse(lightDir, lightColor, norm) * m.diffuseValue;
+    vec3 specular = calcSpecular(viewDir, lightDir, lightColor, norm, m.shininess) * m.specularValue;
     return (ambient + diffuse + specular);
 }
 

@@ -34,6 +34,7 @@ void Graphics::draw(const glm::mat4& transform) {
 }
 
 void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& indices) {
+    //TODO: move buffer logic to renderer
     uint VBO, EBO;
     _indexSize = indices.size();
     //TODO: do this using resource manager
@@ -76,9 +77,17 @@ void Graphics::setUniform(const std::string& name, float value) {
 }
 
 void Graphics::setMaterial(const Material& m) {
-    _mat = m;
-    _vec3Map["material.ambient"] = m.ambient;
-    _vec3Map["material.diffuse"] = m.diffuse;
-    _vec3Map["material.specular"] = m.specular;
-    _floatMap["material.shininess"] = m.shininess;
+    if (!m.getDiffuseMap().empty()) {
+        addTexture(m.getDiffuseMap(), "material.diffuseMap");
+    } else {
+        setUniform("material.ambientValue", m.getAmbientValue());
+        setUniform("material.diffuseValue", m.getDiffuseValue());
+        setUniform("material.specularValue", m.getSpecularValue());
+    }
+
+    if (!m.getSpecularMap().empty()) {
+        addTexture(m.getSpecularMap(), "material.specularMap");
+    }
+
+    setUniform("material.shininess", m.getShininess());
 }

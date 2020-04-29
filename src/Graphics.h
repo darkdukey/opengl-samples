@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "Material.h"
 #include "common.h"
 #include "types.h"
 
@@ -19,7 +20,6 @@ class Graphics {
     uint _VAO;
     uint _indexSize;
     DrawCmd* _cmd;
-    Material _mat;
 
    public:
     Graphics(const std::string& shader_name);

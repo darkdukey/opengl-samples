@@ -14,7 +14,6 @@
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
-      "preLaunchTask": "clang++ build active file",
       "osx": {
         "MIMode": "lldb",
         "miDebuggerPath": "/Applications/Xcode.app/Contents/Developer/usr/bin/lldb-mi"

@@ -74,11 +74,7 @@ int main(int argc, char const* argv[]) {
     mod->load();
     sc->addChild(mod);
 
-    // Material mat;
-    // mat.ambient = {1.0f, 0.5f, 0.31f};
-    // mat.diffuse = {1.0f, 0.5f, 0.31f};
-    // mat.specular = {0.5f, 0.5f, 0.5f};
-    // mat.shininess = 32.0f;
+    // Material mat({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
     // auto cb1 = LitCube::create("material");
     // cb1->position(0, 12, 0);
     // cb1->scale(4, 4, 4);

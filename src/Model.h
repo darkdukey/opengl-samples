@@ -22,5 +22,5 @@ class Model : public Node {
     void loadModel(const std::string &path);
     void processNode(aiNode *node, const aiScene *scene);
     void processMesh(aiMesh *mesh, const aiScene *scene);
-    void loadMaterialTextures(std::map<std::string, std::string> &samplerMap, aiMaterial *mat, aiTextureType type, std::string typeName);
+    std::string getTexture(aiMaterial *mat, aiTextureType type);
 };
