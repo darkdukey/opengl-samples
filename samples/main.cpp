@@ -70,16 +70,23 @@ int main(int argc, char const* argv[]) {
     sc->addChild(light_root);
 
     // auto mod = Model::create("models/room/model.gltf");
-    auto mod = Model::create("models/nanosuit/scene.gltf");
-    mod->load();
-    sc->addChild(mod);
+    // auto mod = Model::create("models/nanosuit/scene.gltf");
+    // mod->load();
+    // sc->addChild(mod);
 
-    // Material mat({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
+    // Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
     // auto cb1 = LitCube::create("material");
     // cb1->position(0, 12, 0);
     // cb1->scale(4, 4, 4);
-    // cb1->setMaterial(mat);
+    // cb1->setMaterial(mat1);
     // sc->addChild(cb1);
+
+    Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
+    auto cb2 = LitCube::create("lit");
+    cb2->position(0, 12, 0);
+    cb2->scale(4, 4, 4);
+    cb2->setMaterial(mat2);
+    sc->addChild(cb2);
 
     // auto sp1 = Sprite::create("textures/awesomeface.png");
     // sp1->x(0.5f);
