@@ -54,16 +54,16 @@ int main(int argc, char const* argv[]) {
 
     // Create light
     auto directLight = Light::create("sun", Directional);
-    directLight->position(0, -2, -4);
+    directLight->pos(0, -2, -4);
     directLight->setColor(0.1, 0.1, 0.1);
     sc->addChild(directLight);
 
     //Rotating point light
     auto light_root = Node::create();
-    light_root->position(0, 12, 0);
+    light_root->pos(0, 12, 0);
 
     auto point_light = Light::create("point", Point);
-    point_light->position(0, 0, 5);
+    point_light->pos(0, 0, 5);
     point_light->setColor(0.5, 0.5, 0.5);
     point_light->enableDebugShape();
     light_root->addChild(point_light);
@@ -83,8 +83,8 @@ int main(int argc, char const* argv[]) {
 
     Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
     auto cb2 = LitCube::create("lit");
-    cb2->position(0, 12, 0);
-    cb2->scale(4, 4, 4);
+    cb2->pos(0, 12, 0);
+    cb2->sscale(4, 4, 4);
     cb2->setMaterial(mat2);
     sc->addChild(cb2);
 
@@ -96,7 +96,7 @@ int main(int argc, char const* argv[]) {
     // sc->addChild(sp2);
 
     auto cam = Camera::create(800, 600);
-    cam->position(0, 15, 10);
+    cam->pos(0, 15, 10);
     cam->lookat(0, 12, 0);
     sc->addChild(cam);
 
@@ -112,7 +112,7 @@ int main(int argc, char const* argv[]) {
         sc->draw();
         sc->update();
         // mod->rotByY(-0.1f);
-        light_root->rotByY(0.5f);
+        light_root->srby(0.5f);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

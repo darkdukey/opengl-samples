@@ -43,25 +43,25 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     void addChild(std::shared_ptr<Node> child);
     void removeChild(std::shared_ptr<Node> child);
 
-    virtual void position(float x, float y, float z) { _pos = {x, y, z}; }
+    virtual void pos(float x, float y, float z) { _pos = {x, y, z}; }
     glm::vec3 getPosition() { return _pos; }
     glm::vec3 getWorldPos() { return _worldPos; };
-    void x(float x) { _pos.x = x; }
-    void y(float y) { _pos.y = y; }
-    void z(float z) { _pos.z = z; }
-    float getX() { return _pos.x; }
-    float getY() { return _pos.y; }
-    float getZ() { return _pos.z; }
-    void rotX(float v) { _rot.x = v; }
-    void rotY(float v) { _rot.y = v; }
-    void rotZ(float v) { _rot.z = v; }
-    void rotByX(float v) { _rot.x += v; }
-    void rotByY(float v) { _rot.y += v; }
-    void rotByZ(float v) { _rot.z += v; }
-    float getRotX() { return _rot.x; }
-    float getRotY() { return _rot.y; }
-    float getRotZ() { return _rot.z; }
-    void scale(float x, float y, float z) { _scale = {x, y, z}; }
+    void sx(float x) { _pos.x = x; }
+    void sy(float y) { _pos.y = y; }
+    void sz(float z) { _pos.z = z; }
+    float x() { return _pos.x; }
+    float y() { return _pos.y; }
+    float z() { return _pos.z; }
+    void srx(float v) { _rot.x = v; }
+    void sry(float v) { _rot.y = v; }
+    void srz(float v) { _rot.z = v; }
+    void srbx(float v) { _rot.x += v; }
+    void srby(float v) { _rot.y += v; }
+    void srbz(float v) { _rot.z += v; }
+    float rx() { return _rot.x; }
+    float ry() { return _rot.y; }
+    float rz() { return _rot.z; }
+    void sscale(float x, float y, float z) { _scale = {x, y, z}; }
 
    private:
     void setParent(std::shared_ptr<Node> v) { _parent = v; }

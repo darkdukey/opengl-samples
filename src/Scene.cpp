@@ -30,7 +30,7 @@ void Scene::update() {
 }
 void Scene::draw() {
     _root->draw();
-    Renderer::getInstance()->draw(_camera, &_lightManager);
+    Renderer::ins()->draw(_camera, &_lightManager);
 }
 
 void Scene::addCamera(shared_ptr<Camera> camera) {

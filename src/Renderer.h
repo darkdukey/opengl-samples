@@ -50,7 +50,7 @@ class Renderer {
     ~Renderer();
 
    public:
-    static Renderer* getInstance();
+    static Renderer* ins();
     DrawCmd* getCmd();
     void draw(std::shared_ptr<Camera> cam, LightManager* lightMgr);
 };

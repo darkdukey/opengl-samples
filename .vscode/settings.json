@@ -68,7 +68,8 @@
     "cinttypes": "cpp",
     "hashtable": "cpp",
     "deque": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "set": "cpp"
   },
   "cmake.debugConfig": {
     "stopAtEntry": false,
@@ -79,5 +80,6 @@
       "engineLogging": false,
       "traceResponse": false
     }
-  }
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }

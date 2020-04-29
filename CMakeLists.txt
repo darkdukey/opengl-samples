@@ -49,3 +49,9 @@ option (BUILD_SAMPLES "Build the samples" ON)
 if (BUILD_SAMPLES)
     add_subdirectory(samples)
 endif()
+
+# Build Tests
+option (BUILD_TESTS "Build the samples" ON)
+if (BUILD_TESTS)
+    add_subdirectory(tests)
+endif()

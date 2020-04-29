@@ -1,10 +1,11 @@
 #include "TextureManager.h"
+
 #include "Texture.h"
 
 using namespace std;
 
 TextureManager* TextureManager::s_instance = nullptr;
-TextureManager* TextureManager::getInstance() {
+TextureManager* TextureManager::ins() {
     if (s_instance == nullptr) {
         s_instance = new TextureManager();
     }

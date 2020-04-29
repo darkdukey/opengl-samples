@@ -27,7 +27,7 @@ Shader* ShaderManager::get(const string& name) {
     }
 }
 
-ShaderManager* ShaderManager::getInstance() {
+ShaderManager* ShaderManager::ins() {
     if (s_instance == nullptr) {
         s_instance = new ShaderManager();
     }

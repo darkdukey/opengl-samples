@@ -9,7 +9,7 @@ using namespace std;
 Graphics::Graphics(const string& shader_name)
     : _VAO(0),
       _indexSize(0) {
-    _cmd = Renderer::getInstance()->getCmd();
+    _cmd = Renderer::ins()->getCmd();
     _cmd->setShaderName(shader_name);
     setMaterial({{0.25f, 0.20725f, 0.20725f}, {1.0f, 0.829f, 0.829f}, {0.296648f, 0.296648f, 0.296648f}, 11.26f});
 }
@@ -19,7 +19,7 @@ Graphics::~Graphics() {
 
 void Graphics::addTexture(const string& name, const string& type) {
     if (_textures.find(name) == _textures.end()) {
-        _textures[name] = TextureManager::getInstance()->get(name);
+        _textures[name] = TextureManager::ins()->get(name);
         _textureUniformMap[name] = type;
     }
 }

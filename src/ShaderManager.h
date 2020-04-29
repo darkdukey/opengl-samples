@@ -11,7 +11,7 @@ class ShaderManager {
     static ShaderManager* s_instance;
 
    public:
-    static ShaderManager* getInstance();
+    static ShaderManager* ins();
     ShaderManager();
     ~ShaderManager();
     Shader* get(const std::string& name);

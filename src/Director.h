@@ -4,16 +4,22 @@
 #include <stack>
 
 class Scene;
-class Director {
+
+/**
+ * G is holds all the scenes in this tiny universe.
+ **/
+class G {
    private:
-    static Director* s_instance;
+    static G* s_instance;
     std::stack<std::shared_ptr<Scene>> _sceneStack;
 
    public:
-    static Director* getInstance();
-    Director();
-    ~Director();
-    std::shared_ptr<Scene> getCurrScene();
-    void pushScene(std::shared_ptr<Scene> scene);
-    void popScene();
+    static G* ins();
+    G();
+    ~G();
+
+    std::shared_ptr<Scene> curr();
+    void push(std::shared_ptr<Scene> scene);
+    void pop();
+    void swich(std::shared_ptr<Scene> scene);
 };
