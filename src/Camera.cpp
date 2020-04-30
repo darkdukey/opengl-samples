@@ -19,7 +19,7 @@ Camera::Camera(int width, int height)
 Camera::~Camera() {
 }
 
-void Camera::pos(float x, float y, float z) {
+void Camera::spos(float x, float y, float z) {
     _pos.x = x;
     _pos.y = y;
     _pos.z = z;

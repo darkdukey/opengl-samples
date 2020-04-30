@@ -16,7 +16,9 @@ class Light : public Node {
    private:
     std::string _lightName;
     LightType _lightType;
-    glm::vec3 _color;
+    glm::vec3 _ambient;
+    glm::vec3 _diffuse;
+    glm::vec3 _specular;
     bool _hasDebugShape;
 
    public:
@@ -28,11 +30,11 @@ class Light : public Node {
 
     std::string getLightName() { return _lightName; }
     void setLightName(const std::string& v) { _lightName = v; }
-    void setColor(float r, float g, float b) {
-        _color.r = r;
-        _color.g = g;
-        _color.b = b;
-    }
-    glm::vec3 getColor() { return _color; }
-    LightType getLightType() { return _lightType; }
+    void samb(const glm::vec3& v) { _ambient = v; }
+    glm::vec3 amb() { return _ambient; }
+    void sdiff(const glm::vec3& v) { _diffuse = v; }
+    glm::vec3 diff() { return _diffuse; }
+    void sspec(const glm::vec3& v) { _specular = v; }
+    glm::vec3 spec() { return _specular; }
+    LightType type() { return _lightType; }
 };

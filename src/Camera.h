@@ -26,7 +26,7 @@ class Camera : public Node {
     void lookat(float x, float y, float z);
     void viewport(int width, int height);
     void setMode(ProjMode mode) { _mode = mode; }
-    void pos(float x, float y, float z) override;
+    void spos(float x, float y, float z) override;
     void onAddToScene(Scene* scene) override;
     void onRemoveFromScene(Scene* scene) override;
 

@@ -14,7 +14,9 @@ shared_ptr<Light> Light::create(const string& name, LightType type) {
 Light::Light(const string& name, LightType type)
     : _lightName(name),
       _lightType(type),
-      _color(0.2f),
+      _ambient(0),
+      _diffuse(1),
+      _specular(1),
       _hasDebugShape(false) {
 }
 
@@ -32,7 +34,7 @@ void Light::enableDebugShape() {
     if (!_hasDebugShape) {
         _hasDebugShape = true;
         auto cube = Cube::create("solid_unlit");
-        cube->setColorTint(_color);
+        cube->setColorTint(_diffuse);
         addChild(cube);
     }
 }

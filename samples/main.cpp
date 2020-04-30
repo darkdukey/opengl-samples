@@ -54,17 +54,21 @@ int main(int argc, char const* argv[]) {
 
     // Create light
     auto directLight = Light::create("sun", Directional);
-    directLight->pos(0, -2, -4);
-    directLight->setColor(0.1, 0.1, 0.1);
+    directLight->spos(0, -2, -4);
+    directLight->samb({0.05f, 0.05f, 0.05f});
+    directLight->sdiff({0.4f, 0.4f, 0.4f});
+    directLight->sspec({0.5f, 0.5f, 0.5f});
     sc->addChild(directLight);
 
     //Rotating point light
     auto light_root = Node::create();
-    light_root->pos(0, 12, 0);
+    light_root->spos(0, 12, 0);
 
     auto point_light = Light::create("point", Point);
-    point_light->pos(0, 0, 5);
-    point_light->setColor(0.5, 0.5, 0.5);
+    point_light->spos(0, 0, 5);
+    point_light->samb({0.05f, 0.05f, 0.05f});
+    point_light->sdiff({0.8f, 0.8f, 0.8f});
+    point_light->sspec({1.0f, 1.0f, 1.0f});
     point_light->enableDebugShape();
     light_root->addChild(point_light);
     sc->addChild(light_root);
@@ -74,19 +78,19 @@ int main(int argc, char const* argv[]) {
     // mod->load();
     // sc->addChild(mod);
 
-    // Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
-    // auto cb1 = LitCube::create("material");
-    // cb1->position(0, 12, 0);
-    // cb1->scale(4, 4, 4);
-    // cb1->setMaterial(mat1);
-    // sc->addChild(cb1);
+    Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
+    auto cb1 = LitCube::create("material");
+    cb1->spos(0, 12, 0);
+    cb1->sscale(4, 4, 4);
+    cb1->setMaterial(mat1);
+    sc->addChild(cb1);
 
-    Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
-    auto cb2 = LitCube::create("lit");
-    cb2->pos(0, 12, 0);
-    cb2->sscale(4, 4, 4);
-    cb2->setMaterial(mat2);
-    sc->addChild(cb2);
+    // Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
+    // auto cb2 = LitCube::create("lit");
+    // cb2->spos(0, 12, 0);
+    // cb2->sscale(4, 4, 4);
+    // cb2->setMaterial(mat2);
+    // sc->addChild(cb2);
 
     // auto sp1 = Sprite::create("textures/awesomeface.png");
     // sp1->x(0.5f);
@@ -96,7 +100,7 @@ int main(int argc, char const* argv[]) {
     // sc->addChild(sp2);
 
     auto cam = Camera::create(800, 600);
-    cam->pos(0, 15, 10);
+    cam->spos(0, 15, 10);
     cam->lookat(0, 12, 0);
     sc->addChild(cam);
 

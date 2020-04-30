@@ -54,7 +54,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
         s->setMat4("transform", data.getTransform());
         s->setMat4("proj", cam->getProj());
         s->setMat4("view", cam->getView());
-        s->setVec3("viewPos", cam->getWorldPos());
+        s->setVec3("viewPos", cam->worldPos());
 
         // Set vec3 uniform
         for (auto& it : data.getVec3Uniform()) {

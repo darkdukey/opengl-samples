@@ -10,8 +10,6 @@ using namespace std;
 using namespace NT;
 
 LightManager::LightManager() {
-    _ambientColor = {0.0f, 0.0f, 0.0f};
-    _ambientStrength = 0.02f;
 }
 
 LightManager::~LightManager() {
@@ -21,7 +19,7 @@ LightManager::~LightManager() {
 void LightManager::addLight(shared_ptr<Light> light) {
     _lights.push_back(light);
 
-    switch (light->getLightType()) {
+    switch (light->type()) {
         case Directional:
             _directLights.push_back(light);
             break;
@@ -46,7 +44,7 @@ void LightManager::doRemove(vector<shared_ptr<Light>>& arr, shared_ptr<Light> li
 
 void LightManager::removeLight(shared_ptr<Light> light) {
     doRemove(_lights, light);
-    switch (light->getLightType()) {
+    switch (light->type()) {
         case Directional:
             doRemove(_directLights, light);
             break;
@@ -64,12 +62,8 @@ void LightManager::removeLight(shared_ptr<Light> light) {
 
 void LightManager::drawLights(Shader* shader) {
     if (shader) {
-        // Ambient Color
-        shader->setVec3(NameAmbientColor, getAmbientColor());
-
-        vector<glm::vec3> pos;
-        vector<glm::vec3> color;
         int count;
+
         if (_directLights.size() >= MAX_Direct_Light) {
             LOG(warning) << "max direct light: " << MAX_Direct_Light << " count: " << _directLights.size();
         }
@@ -79,26 +73,26 @@ void LightManager::drawLights(Shader* shader) {
         // Directional
         for (int i = 0; i < count; i++) {
             auto l = _directLights[i];
-            pos.push_back(l->getPosition());
-            color.push_back(l->getColor());
+            string str_uniform = NameDirectional + "[" + to_string(i) + "]";
+            shader->setVec3(str_uniform + ".pos", l->pos());
+            shader->setVec3(str_uniform + ".ambient", l->amb());
+            shader->setVec3(str_uniform + ".diffuse", l->diff());
+            shader->setVec3(str_uniform + ".specular", l->spec());
         }
 
-        shader->setVec3Array(NameDirectional + "Dir", pos);
-        shader->setVec3Array(NameDirectional + "Color", color);
         shader->setInt(NameDirectional + "Count", count);
 
         //Point/Spot light
-        pos.clear();
-        color.clear();
         count = min((int)_pointLights.size(), MAX_Point_Light);
         for (int i = 0; i < count; i++) {
             auto l = _pointLights[i];
-            pos.push_back(l->getWorldPos());
-            color.push_back(l->getColor());
+            string str_uniform = NamePoint + "[" + to_string(i) + "]";
+            shader->setVec3(str_uniform + ".pos", l->worldPos());
+            shader->setVec3(str_uniform + ".ambient", l->amb());
+            shader->setVec3(str_uniform + ".diffuse", l->diff());
+            shader->setVec3(str_uniform + ".specular", l->spec());
         }
 
-        shader->setVec3Array(NamePoint + "Pos", pos);
-        shader->setVec3Array(NamePoint + "Color", color);
         shader->setInt(NamePoint + "Count", count);
     }
 }
