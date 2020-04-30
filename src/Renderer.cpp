@@ -12,16 +12,6 @@
 using namespace std;
 using namespace NT;
 
-Renderer* Renderer::s_instance = nullptr;
-
-Renderer* Renderer::ins() {
-    if (s_instance == nullptr) {
-        s_instance = new Renderer();
-    }
-
-    return s_instance;
-}
-
 Renderer::Renderer()
     : _count(0) {
     _cmdList.reserve(INIT_SIZE);
@@ -47,7 +37,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
 
     for (uint i = 0; i < _count; i++) {
         auto data = _cmdList[i];
-        Shader* s = ShaderManager::ins()->get(data.getShaderName());
+        Shader* s = ShaderManager::ins().get(data.getShaderName());
         s->enable();
 
         // Update Transform
@@ -71,7 +61,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
 
         int c = 0;
         for (auto& it : data.getTextureUniform()) {
-            auto tex = TextureManager::ins()->get(it.first);
+            auto tex = TextureManager::ins().get(it.first);
             glActiveTexture(GL_TEXTURE0 + c);
             tex->enable(GL_TEXTURE0 + c);
             s->setInt(it.second, c);

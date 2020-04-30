@@ -8,10 +8,12 @@
 class ShaderManager {
    private:
     std::map<std::string, Shader*> _cacheMap;
-    static ShaderManager* s_instance;
 
    public:
-    static ShaderManager* ins();
+    static ShaderManager& ins() {
+        static ShaderManager s{};
+        return s;
+    };
     ShaderManager();
     ~ShaderManager();
     Shader* get(const std::string& name);

@@ -4,16 +4,6 @@
 
 using namespace std;
 
-G* G::s_instance = nullptr;
-
-G* G::ins() {
-    if (s_instance == nullptr) {
-        s_instance = new G();
-    }
-
-    return s_instance;
-}
-
 G::G() {
 }
 

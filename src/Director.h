@@ -10,13 +10,17 @@ class Scene;
  **/
 class G {
    private:
-    static G* s_instance;
     std::stack<std::shared_ptr<Scene>> _sceneStack;
 
-   public:
-    static G* ins();
+   private:
     G();
     ~G();
+
+   public:
+    static G& ins() {
+        static G g{};
+        return g;
+    }
 
     std::shared_ptr<Scene> curr();
     void push(std::shared_ptr<Scene> scene);

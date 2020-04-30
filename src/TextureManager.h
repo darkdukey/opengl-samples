@@ -8,11 +8,13 @@
 
 class TextureManager {
    private:
-    static TextureManager* s_instance;
     std::unordered_map<std::string, Texture*> _cacheMap;
 
    public:
-    static TextureManager* ins();
+    static TextureManager& ins() {
+        static TextureManager t{};
+        return t;
+    };
     TextureManager();
     ~TextureManager();
     Texture* get(const std::string& name);

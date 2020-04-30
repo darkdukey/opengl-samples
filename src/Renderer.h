@@ -40,7 +40,6 @@ class Camera;
 class LightManager;
 class Renderer {
    private:
-    static Renderer* s_instance;
     std::vector<DrawCmd> _cmdList;
     uint _count;
     const int INIT_SIZE = 1000;
@@ -50,7 +49,10 @@ class Renderer {
     ~Renderer();
 
    public:
-    static Renderer* ins();
+    static Renderer& ins() {
+        static Renderer r{};
+        return r;
+    };
     DrawCmd* getCmd();
     void draw(std::shared_ptr<Camera> cam, LightManager* lightMgr);
 };

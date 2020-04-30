@@ -4,14 +4,6 @@
 
 using namespace std;
 
-TextureManager* TextureManager::s_instance = nullptr;
-TextureManager* TextureManager::ins() {
-    if (s_instance == nullptr) {
-        s_instance = new TextureManager();
-    }
-    return s_instance;
-}
-
 TextureManager::TextureManager() {
 }
 

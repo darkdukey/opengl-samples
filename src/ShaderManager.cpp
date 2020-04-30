@@ -4,8 +4,6 @@
 
 using namespace std;
 
-ShaderManager* ShaderManager::s_instance = nullptr;
-
 ShaderManager::ShaderManager() {
 }
 
@@ -25,11 +23,4 @@ Shader* ShaderManager::get(const string& name) {
         _cacheMap[name] = shader;
         return shader;
     }
-}
-
-ShaderManager* ShaderManager::ins() {
-    if (s_instance == nullptr) {
-        s_instance = new ShaderManager();
-    }
-    return s_instance;
 }
