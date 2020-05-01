@@ -70,7 +70,7 @@ void Node::addChild(shared_ptr<Node> child) {
     child->setParent(shared_from_this());
     _children.push_back(child);
     if (_scene) {
-        onAddToScene(_scene);
+        child->onAddToScene(_scene);
     }
 }
 
@@ -80,7 +80,7 @@ void Node::removeChild(shared_ptr<Node> child) {
         _children.erase(pos);
         child->setParent(nullptr);
         if (_scene) {
-            onRemoveFromScene(_scene);
+            child->onRemoveFromScene(_scene);
         }
     }
 }

@@ -19,6 +19,10 @@ class Light : public Node {
     glm::vec3 _ambient;
     glm::vec3 _diffuse;
     glm::vec3 _specular;
+    //Attenuation
+    float _constant;
+    float _linear;
+    float _quadratic;
     bool _hasDebugShape;
 
    public:
@@ -37,4 +41,7 @@ class Light : public Node {
     void sspec(const glm::vec3& v) { _specular = v; }
     glm::vec3 spec() { return _specular; }
     LightType type() { return _lightType; }
+    float cst() { return _constant; }
+    float lin() { return _linear; }
+    float quad() { return _quadratic;}
 };

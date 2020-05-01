@@ -63,34 +63,58 @@ int main(int argc, char const* argv[]) {
     //Rotating point light
     auto light_root = Node::create();
     light_root->spos(0, 12, 0);
-
-    auto point_light = Light::create("point", Point);
-    point_light->spos(0, 0, 5);
-    point_light->samb({0.05f, 0.05f, 0.05f});
-    point_light->sdiff({0.8f, 0.8f, 0.8f});
-    point_light->sspec({1.0f, 1.0f, 1.0f});
-    point_light->enableDebugShape();
-    light_root->addChild(point_light);
     sc->addChild(light_root);
+
+    auto point_light1 = Light::create("point1", Point);
+    point_light1->spos(0, 0, 5);
+    point_light1->samb({0.05f, 0.05f, 0.05f});
+    point_light1->sdiff({0.8f, 0.8f, 0.8f});
+    point_light1->sspec({1.0f, 1.0f, 1.0f});
+    point_light1->enableDebugShape();
+    light_root->addChild(point_light1);
+
+    auto point_light2 = Light::create("point2", Point);
+    point_light2->spos(0, 0, -5);
+    point_light2->samb({0.05f, 0.05f, 0.05f});
+    point_light2->sdiff({0.8f, 0.2f, 0.2f});
+    point_light2->sspec({1.0f, 0.25f, 0.25f});
+    point_light2->enableDebugShape();
+    light_root->addChild(point_light2);
+
+    auto point_light3 = Light::create("point3", Point);
+    point_light3->spos(5, 0, 0);
+    point_light3->samb({0.05f, 0.05f, 0.05f});
+    point_light3->sdiff({0.2f, 0.8f, 0.2f});
+    point_light3->sspec({0.25f, 1.0f, 0.25f});
+    point_light3->enableDebugShape();
+    light_root->addChild(point_light3);
+
+    auto point_light4 = Light::create("point4", Point);
+    point_light4->spos(-5, 0, 0);
+    point_light4->samb({0.05f, 0.05f, 0.05f});
+    point_light4->sdiff({0.2f, 0.2f, 0.8f});
+    point_light4->sspec({0.25f, 0.25f, 1.0f});
+    point_light4->enableDebugShape();
+    light_root->addChild(point_light4);
 
     // auto mod = Model::create("models/room/model.gltf");
     // auto mod = Model::create("models/nanosuit/scene.gltf");
     // mod->load();
     // sc->addChild(mod);
 
-    Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
-    auto cb1 = LitCube::create("material");
-    cb1->spos(0, 12, 0);
-    cb1->sscale(4, 4, 4);
-    cb1->setMaterial(mat1);
-    sc->addChild(cb1);
+    // Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
+    // auto cb1 = LitCube::create("material");
+    // cb1->spos(0, 12, 0);
+    // cb1->sscale(4, 4, 4);
+    // cb1->setMaterial(mat1);
+    // sc->addChild(cb1);
 
-    // Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
-    // auto cb2 = LitCube::create("lit");
-    // cb2->spos(0, 12, 0);
-    // cb2->sscale(4, 4, 4);
-    // cb2->setMaterial(mat2);
-    // sc->addChild(cb2);
+    Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
+    auto cb2 = LitCube::create("lit");
+    cb2->spos(0, 12, 0);
+    cb2->sscale(4, 4, 4);
+    cb2->setMaterial(mat2);
+    sc->addChild(cb2);
 
     // auto sp1 = Sprite::create("textures/awesomeface.png");
     // sp1->x(0.5f);

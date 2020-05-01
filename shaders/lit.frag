@@ -18,6 +18,10 @@ struct Light {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+    //
+    float constant;
+    float linear;
+    float quadratic;
 };
 
 // Camera Position
@@ -55,15 +59,15 @@ vec3 calcPointLight(Light light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // attenuation
     float distance    = length(light.pos - fragPos);
-    // float attenuation = 1.0 / (light.constant + light.linear * distance + 
-  	// 		     light.quadratic * (distance * distance));    
+    float attenuation = 1.0 / (light.constant + light.linear * distance + 
+  			     light.quadratic * (distance * distance));    
     // combine results
     vec3 ambient  = light.ambient  * vec3(texture(material.diffuseMap, TexCoord));
     vec3 diffuse  = light.diffuse  * diff * vec3(texture(material.diffuseMap, TexCoord));
     vec3 specular = light.specular * spec * vec3(texture(material.specularMap, TexCoord));
-    // ambient  *= attenuation;
-    // diffuse  *= attenuation;
-    // specular *= attenuation;
+    ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
     return (ambient + diffuse + specular);
 }
 

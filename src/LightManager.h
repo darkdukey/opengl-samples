@@ -1,9 +1,9 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <memory>
+#include <set>
 #include <string>
 #include <unordered_map>
-#include <vector>
 
 #include "Light.h"
 #include "Node.h"
@@ -13,13 +13,13 @@ class Shader;
 //TODO: support skybox lighting
 class LightManager {
    private:
-    std::vector<std::shared_ptr<Light>> _lights;
-    std::vector<std::shared_ptr<Light>> _directLights;
-    std::vector<std::shared_ptr<Light>> _pointLights;
-    std::vector<std::shared_ptr<Light>> _spotLights;
+    std::set<std::shared_ptr<Light>> _lights;
+    std::set<std::shared_ptr<Light>> _directLights;
+    std::set<std::shared_ptr<Light>> _pointLights;
+    std::set<std::shared_ptr<Light>> _spotLights;
 
    private:
-    void doRemove(std::vector<std::shared_ptr<Light>>& arr, std::shared_ptr<Light> light);
+    void doRemove(std::set<std::shared_ptr<Light>>& arr, std::shared_ptr<Light> light);
 
    public:
     const std::string NameDirectional = "directLight";
