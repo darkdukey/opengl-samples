@@ -33,7 +33,8 @@ class LightManager {
     LightManager();
     ~LightManager();
 
-    void addLight(std::shared_ptr<Light> light);
-    void removeLight(std::shared_ptr<Light> light);
-    void drawLights(Shader* shader);
+    void add(std::shared_ptr<Light> light);
+    void remove(std::shared_ptr<Light> light);
+    void clear();
+    void draw(Shader* shader);
 };

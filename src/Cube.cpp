@@ -41,7 +41,7 @@ shared_ptr<Cube> Cube::create(const string& shaderName, const string& filename) 
 
 Cube::Cube(const string& shaderName, const string& filename) {
     _graphics = make_shared<Graphics>(shaderName);
-    _graphics->addTexture(filename);
+    _graphics->addTexture(filename, "texture0");
     //TODO: create buffer using buffer mananger
     _graphics->createBuffer(cube_vertices, cube_indices);
 }

@@ -25,5 +25,5 @@ class G {
     std::shared_ptr<Scene> curr();
     void push(std::shared_ptr<Scene> scene);
     void pop();
-    void swich(std::shared_ptr<Scene> scene);
+    void replace(std::shared_ptr<Scene> scene);
 };

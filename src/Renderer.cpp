@@ -27,8 +27,17 @@ DrawCmd* Renderer::getCmd() {
     }
 
     LOG(debug) << "Cmd Size: " << _count;
+    auto cmd = &_cmdList[_count++];
+    cmd->setValid(true);
+    return cmd;
+}
 
-    return &_cmdList[_count++];
+void Renderer::reset() {
+    for (uint i = 0; i < _count; i++) {
+        auto& data = _cmdList[i];
+        data.setValid(false);
+    }
+    _count = 0;
 }
 
 void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
@@ -36,7 +45,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     for (uint i = 0; i < _count; i++) {
-        auto data = _cmdList[i];
+        auto& data = _cmdList[i];
         Shader* s = ShaderManager::ins().get(data.getShaderName());
         s->enable();
 
@@ -57,7 +66,7 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
         }
 
         // Update Light
-        lightMgr->drawLights(s);
+        lightMgr->draw(s);
 
         int c = 0;
         for (auto& it : data.getTextureUniform()) {

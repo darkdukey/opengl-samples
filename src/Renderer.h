@@ -10,6 +10,7 @@
 #include "types.h"
 
 class DrawCmd {
+    bool _valid;
     glm::mat4 _transform;
     std::string _shaderName;
     //TODO: create material system
@@ -20,6 +21,8 @@ class DrawCmd {
     UniformFloatMap _uniformFloatMap;
 
    public:
+    DrawCmd() : _valid(false){};
+
     void setTransform(const glm::mat4& t) { _transform = t; }
     glm::mat4& getTransform() { return _transform; }
     std::string getShaderName() { return _shaderName; }
@@ -34,11 +37,16 @@ class DrawCmd {
     void setVAO(uint v) { _vao = v; }
     uint getCount() { return _count; }
     void setCount(uint v) { _count = v; }
+    bool isValid() { return _valid; }
+    void setValid(bool v) { _valid = v; }
 };
 
 class Camera;
 class LightManager;
 class Renderer {
+    friend class Graphics;
+    friend class G;
+
    private:
     std::vector<DrawCmd> _cmdList;
     uint _count;
@@ -47,12 +55,14 @@ class Renderer {
    private:
     Renderer();
     ~Renderer();
+    DrawCmd* getCmd();
+    void reset();
 
    public:
-    static Renderer& ins() {
+    static Renderer&
+    ins() {
         static Renderer r{};
         return r;
     };
-    DrawCmd* getCmd();
     void draw(std::shared_ptr<Camera> cam, LightManager* lightMgr);
 };

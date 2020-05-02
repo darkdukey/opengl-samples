@@ -30,7 +30,7 @@ shared_ptr<Sprite> Sprite::create(const string& filename) {
 
 Sprite::Sprite(const string& filename) {
     _graphics = make_shared<Graphics>("basic");
-    _graphics->addTexture(filename);
+    _graphics->addTexture(filename, "texture0");
     //TODO: create buffer using buffer mananger
     _graphics->createBuffer(vertices, indices);
 }

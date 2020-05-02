@@ -16,7 +16,7 @@ LightManager::~LightManager() {
     _lights.clear();
 }
 
-void LightManager::addLight(shared_ptr<Light> light) {
+void LightManager::add(shared_ptr<Light> light) {
     _lights.insert(light);
 
     switch (light->type()) {
@@ -42,7 +42,7 @@ void LightManager::doRemove(set<shared_ptr<Light>>& arr, shared_ptr<Light> light
     }
 }
 
-void LightManager::removeLight(shared_ptr<Light> light) {
+void LightManager::remove(shared_ptr<Light> light) {
     doRemove(_lights, light);
     switch (light->type()) {
         case Directional:
@@ -60,7 +60,14 @@ void LightManager::removeLight(shared_ptr<Light> light) {
     }
 }
 
-void LightManager::drawLights(Shader* shader) {
+void LightManager::clear() {
+    _lights.clear();
+    _directLights.clear();
+    _pointLights.clear();
+    _spotLights.clear();
+}
+
+void LightManager::draw(Shader* shader) {
     if (shader) {
         int count;
 

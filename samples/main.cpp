@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Debug.h"
+#include "Director.h"
 #include "FileUtil.h"
 #include "LitCube.h"
 #include "Model.h"
@@ -15,8 +16,10 @@
 #include "common.h"
 
 using namespace std;
-using namespace glm;
 using namespace NT;
+
+vector<shared_ptr<Scene>> scenes;
+int curr;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -27,32 +30,46 @@ void processInput(GLFWwindow* window) {
         glfwSetWindowShouldClose(window, true);
 }
 
-int main(int argc, char const* argv[]) {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // For Mac
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-    if (window == NULL) {
-        cout << "Failed to create GLFW window" << endl;
-        glfwTerminate();
-        return -1;
+void onKeyboard(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+        //prev scene
+        curr--;
+        curr = max(curr, 0);
+        G::ins().replace(scenes[curr]);
+    } else if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+        //next scene
+        curr++;
+        curr = min(curr, (int)(scenes.size() - 1));
+        G::ins().replace(scenes[curr]);
     }
-    glfwMakeContextCurrent(window);
+}
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        cout << "Failed to initialize GLAD" << endl;
-        return -1;
-    }
-
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+void createSpriteScene() {
     auto sc = Scene::create();
+    scenes.push_back(sc);
 
-    // Create light
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 0, 5);
+    cam->lookat(0, 0, 0);
+    sc->addChild(cam);
+
+    auto sp1 = Sprite::create("textures/awesomeface.png");
+    sp1->sx(0.5f);
+    sc->addChild(sp1);
+    auto sp2 = Sprite::create("textures/wall.jpg");
+    sp2->sx(-0.5f);
+    sc->addChild(sp2);
+}
+
+void createModelScene() {
+    auto sc = Scene::create();
+    scenes.push_back(sc);
+
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
+
     auto directLight = Light::create("sun", Directional);
     directLight->spos(0, -2, -4);
     directLight->samb({0.05f, 0.05f, 0.05f});
@@ -60,7 +77,35 @@ int main(int argc, char const* argv[]) {
     directLight->sspec({0.5f, 0.5f, 0.5f});
     sc->addChild(directLight);
 
-    //Rotating point light
+    // auto mod = Model::create("models/room/model.gltf");
+    auto mod = Model::create("models/nanosuit/scene.gltf");
+    mod->load();
+    sc->addChild(mod);
+}
+
+void createSolidScene() {
+    auto sc = Scene::create();
+    scenes.push_back(sc);
+
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
+
+    Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
+    auto cb1 = LitCube::create("material");
+    cb1->spos(0, 12, 0);
+    cb1->sscale(4, 4, 4);
+    cb1->setMaterial(mat1);
+    sc->addChild(cb1);
+
+    auto directLight = Light::create("sun", Directional);
+    directLight->spos(0, -2, -4);
+    directLight->samb({0.05f, 0.05f, 0.05f});
+    directLight->sdiff({0.4f, 0.4f, 0.4f});
+    directLight->sspec({0.5f, 0.5f, 0.5f});
+    sc->addChild(directLight);
+
     auto light_root = Node::create();
     light_root->spos(0, 12, 0);
     sc->addChild(light_root);
@@ -97,17 +142,19 @@ int main(int argc, char const* argv[]) {
     point_light4->enableDebugShape();
     light_root->addChild(point_light4);
 
-    // auto mod = Model::create("models/room/model.gltf");
-    // auto mod = Model::create("models/nanosuit/scene.gltf");
-    // mod->load();
-    // sc->addChild(mod);
+    sc->onUpdate([light_root]() {
+        light_root->srby(0.5f);
+    });
+}
 
-    // Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
-    // auto cb1 = LitCube::create("material");
-    // cb1->spos(0, 12, 0);
-    // cb1->sscale(4, 4, 4);
-    // cb1->setMaterial(mat1);
-    // sc->addChild(cb1);
+void createLitScene() {
+    auto sc = Scene::create();
+    scenes.push_back(sc);
+
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
 
     Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
     auto cb2 = LitCube::create("lit");
@@ -116,20 +163,92 @@ int main(int argc, char const* argv[]) {
     cb2->setMaterial(mat2);
     sc->addChild(cb2);
 
-    // auto sp1 = Sprite::create("textures/awesomeface.png");
-    // sp1->x(0.5f);
-    // sc->addChild(sp1);
-    // auto sp2 = Sprite::create("textures/wall.jpg");
-    // sp2->x(-0.5f);
-    // sc->addChild(sp2);
+    auto directLight = Light::create("sun", Directional);
+    directLight->spos(0, -2, -4);
+    directLight->samb({0.05f, 0.05f, 0.05f});
+    directLight->sdiff({0.4f, 0.4f, 0.4f});
+    directLight->sspec({0.5f, 0.5f, 0.5f});
+    sc->addChild(directLight);
 
-    auto cam = Camera::create(800, 600);
-    cam->spos(0, 15, 10);
-    cam->lookat(0, 12, 0);
-    sc->addChild(cam);
+    auto light_root = Node::create();
+    light_root->spos(0, 12, 0);
+    sc->addChild(light_root);
+
+    auto point_light1 = Light::create("point1", Point);
+    point_light1->spos(0, 0, 5);
+    point_light1->samb({0.05f, 0.05f, 0.05f});
+    point_light1->sdiff({0.8f, 0.8f, 0.8f});
+    point_light1->sspec({1.0f, 1.0f, 1.0f});
+    point_light1->enableDebugShape();
+    light_root->addChild(point_light1);
+
+    auto point_light2 = Light::create("point2", Point);
+    point_light2->spos(0, 0, -5);
+    point_light2->samb({0.05f, 0.05f, 0.05f});
+    point_light2->sdiff({0.8f, 0.2f, 0.2f});
+    point_light2->sspec({1.0f, 0.25f, 0.25f});
+    point_light2->enableDebugShape();
+    light_root->addChild(point_light2);
+
+    auto point_light3 = Light::create("point3", Point);
+    point_light3->spos(5, 0, 0);
+    point_light3->samb({0.05f, 0.05f, 0.05f});
+    point_light3->sdiff({0.2f, 0.8f, 0.2f});
+    point_light3->sspec({0.25f, 1.0f, 0.25f});
+    point_light3->enableDebugShape();
+    light_root->addChild(point_light3);
+
+    auto point_light4 = Light::create("point4", Point);
+    point_light4->spos(-5, 0, 0);
+    point_light4->samb({0.05f, 0.05f, 0.05f});
+    point_light4->sdiff({0.2f, 0.2f, 0.8f});
+    point_light4->sspec({0.25f, 0.25f, 1.0f});
+    point_light4->enableDebugShape();
+    light_root->addChild(point_light4);
+
+    sc->onUpdate([light_root]() {
+        light_root->srby(0.5f);
+    });
+}
+
+int main(int argc, char const* argv[]) {
+    curr = 0;
+
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // For Mac
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+    if (window == NULL) {
+        cout << "Failed to create GLFW window" << endl;
+        glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(window);
+
+    // Keyboard input
+    glfwSetKeyCallback(window, onKeyboard);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        cout << "Failed to initialize GLAD" << endl;
+        return -1;
+    }
+
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     //TODO: move this to renderer
     glEnable(GL_DEPTH_TEST);
+
+    //Create Scenes
+    createSpriteScene();
+    createSolidScene();
+    createLitScene();
+    createModelScene();
+
+    G::ins().replace(scenes[curr]);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
@@ -137,10 +256,8 @@ int main(int argc, char const* argv[]) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        sc->draw();
-        sc->update();
-        // mod->rotByY(-0.1f);
-        light_root->srby(0.5f);
+        G::ins().curr()->draw();
+        G::ins().curr()->update();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

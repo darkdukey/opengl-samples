@@ -8,9 +8,9 @@ using namespace std;
 
 Graphics::Graphics(const string& shader_name)
     : _VAO(0),
-      _indexSize(0) {
-    _cmd = Renderer::ins().getCmd();
-    _cmd->setShaderName(shader_name);
+      _indexSize(0),
+      _shaderName(shader_name),
+      _cmd(nullptr) {
     setMaterial({{0.25f, 0.20725f, 0.20725f}, {1.0f, 0.829f, 0.829f}, {0.296648f, 0.296648f, 0.296648f}, 11.26f});
 }
 
@@ -25,6 +25,10 @@ void Graphics::addTexture(const string& name, const string& type) {
 }
 
 void Graphics::draw(const glm::mat4& transform) {
+    if (_cmd == nullptr || !_cmd->isValid()) {
+        _cmd = Renderer::ins().getCmd();
+        _cmd->setShaderName(_shaderName);
+    }
     _cmd->setTransform(transform);
     _cmd->setTextureUniform(_textureUniformMap);
     _cmd->setVAO(_VAO);

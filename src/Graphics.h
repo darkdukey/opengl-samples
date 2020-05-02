@@ -20,12 +20,13 @@ class Graphics {
     uint _VAO;
     uint _indexSize;
     DrawCmd* _cmd;
+    std::string _shaderName;
 
    public:
     Graphics(const std::string& shader_name);
     ~Graphics();
-    // Shader* getShader() const { return _shader; }
-    void addTexture(const std::string& name, const std::string& type = "texture0");
+
+    void addTexture(const std::string& name, const std::string& type);
     void draw(const glm::mat4& transform);
     void createBuffer(const std::vector<Vertex>& vertices, const std::vector<uint>& indices);
     void setUniform(const std::string& name, glm::vec3 value);

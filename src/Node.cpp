@@ -4,8 +4,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 
-using namespace std;
+#include "Debug.h"
 
+using namespace std;
+using namespace NT;
 shared_ptr<Node> Node::create() {
     return make_shared<Node>();
 }
@@ -20,7 +22,9 @@ Node::Node()
 }
 
 Node::~Node() {
-    _children.clear();
+    for (auto& i : _children) {
+        removeChild(i);
+    }
 }
 
 void Node::update() {

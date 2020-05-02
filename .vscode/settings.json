@@ -69,7 +69,8 @@
     "hashtable": "cpp",
     "deque": "cpp",
     "stack": "cpp",
-    "set": "cpp"
+    "set": "cpp",
+    "__functional_03": "cpp"
   },
   "cmake.debugConfig": {
     "stopAtEntry": false,
