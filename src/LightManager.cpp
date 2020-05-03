@@ -81,6 +81,7 @@ void LightManager::draw(Shader* shader) {
         for (auto l : _directLights) {
             string str_uniform = NameDirectional + "[" + to_string(i) + "]";
             shader->setVec3(str_uniform + ".pos", l->pos());
+            shader->setVec3(str_uniform + ".dir", l->worldFwd());
             shader->setVec3(str_uniform + ".ambient", l->amb());
             shader->setVec3(str_uniform + ".diffuse", l->diff());
             shader->setVec3(str_uniform + ".specular", l->spec());
@@ -89,12 +90,13 @@ void LightManager::draw(Shader* shader) {
         }
         shader->setInt(NameDirectional + "Count", count);
 
-        //Point/Spot Light
+        //Point Light
         count = min((int)_pointLights.size(), MAX_Point_Light);
         i = 0;
         for (auto l : _pointLights) {
             string str_uniform = NamePoint + "[" + to_string(i) + "]";
             shader->setVec3(str_uniform + ".pos", l->worldPos());
+            shader->setVec3(str_uniform + ".dir", l->worldFwd());
             shader->setVec3(str_uniform + ".ambient", l->amb());
             shader->setVec3(str_uniform + ".diffuse", l->diff());
             shader->setVec3(str_uniform + ".specular", l->spec());
@@ -105,5 +107,25 @@ void LightManager::draw(Shader* shader) {
             if (i >= count) break;
         }
         shader->setInt(NamePoint + "Count", count);
+
+        //Spot Light
+        count = min((int)_spotLights.size(), MAX_Spot_Light);
+        i = 0;
+        for (auto l : _spotLights) {
+            string str_uniform = NameSpot + "[" + to_string(i) + "]";
+            shader->setVec3(str_uniform + ".pos", l->worldPos());
+            shader->setVec3(str_uniform + ".dir", l->worldFwd());
+            shader->setVec3(str_uniform + ".ambient", l->amb());
+            shader->setVec3(str_uniform + ".diffuse", l->diff());
+            shader->setVec3(str_uniform + ".specular", l->spec());
+            shader->setFloat(str_uniform + ".constant", l->cst());
+            shader->setFloat(str_uniform + ".linear", l->lin());
+            shader->setFloat(str_uniform + ".quadratic", l->quad());
+            shader->setFloat(str_uniform + ".cutOff", l->cut());
+            shader->setFloat(str_uniform + ".outerCutOff", l->ocut());
+            i++;
+            if (i >= count) break;
+        }
+        shader->setInt(NameSpot + "Count", count);
     }
 }

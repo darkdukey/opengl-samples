@@ -88,3 +88,9 @@ void Node::removeChild(shared_ptr<Node> child) {
         }
     }
 }
+
+glm::vec3 Node::worldFwd() {
+    glm::mat4 inverted = glm::inverse(_transform);
+    glm::vec3 forward = normalize(glm::vec3(inverted[2])) * glm::vec3(1, 1, -1);
+    return forward;
+}

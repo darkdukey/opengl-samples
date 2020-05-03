@@ -46,6 +46,7 @@ class Node : public inheritable_enable_shared_from_this<Node> {
     virtual void spos(float x, float y, float z) { _pos = {x, y, z}; }
     glm::vec3 pos() { return _pos; }
     glm::vec3 worldPos() { return _worldPos; };
+    glm::vec3 worldFwd();
     void sx(float x) { _pos.x = x; }
     void sy(float y) { _pos.y = y; }
     void sz(float z) { _pos.z = z; }

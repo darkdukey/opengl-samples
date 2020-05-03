@@ -44,6 +44,35 @@ void onKeyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
     }
 }
 
+void createSpotScene() {
+    auto sc = Scene::create();
+    scenes.push_back(sc);
+
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
+
+    Material mat2("textures/container2.png", "textures/container2_specular.png", 32.0f);
+    auto cb2 = LitCube::create("lit");
+    cb2->spos(0, 12, 0);
+    cb2->sscale(4, 4, 4);
+    cb2->setMaterial(mat2);
+    sc->addChild(cb2);
+
+    auto spot_light1 = Light::create("spot1", Spot);
+    spot_light1->spos(0, 12, 7);
+    spot_light1->samb({0.05f, 0.05f, 0.05f});
+    spot_light1->sdiff({0.8f, 0.8f, 0.8f});
+    spot_light1->sspec({1.0f, 1.0f, 1.0f});
+    spot_light1->enableDebugShape();
+    sc->addChild(spot_light1);
+
+    sc->onUpdate([spot_light1]() {
+        // spot_light1->srby(0.5f);
+    });
+}
+
 void createSpriteScene() {
     auto sc = Scene::create();
     scenes.push_back(sc);
@@ -243,6 +272,7 @@ int main(int argc, char const* argv[]) {
     glEnable(GL_DEPTH_TEST);
 
     //Create Scenes
+    createSpotScene();
     createSpriteScene();
     createSolidScene();
     createLitScene();

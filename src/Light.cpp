@@ -22,6 +22,8 @@ Light::Light(const string& name, LightType type)
       _constant(1.0f),
       _linear(0.09f),
       _quadratic(0.032f),
+      _cutOff(glm::cos(glm::radians(12.5f))),
+      _outerCutOff(glm::cos(glm::radians(17.5f))),
       _hasDebugShape(false) {
 }
 

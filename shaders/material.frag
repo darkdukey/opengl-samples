@@ -16,13 +16,17 @@ uniform Material material;
 
 struct Light {
     vec3 pos;
+    vec3 dir;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
-    //
+    //Attenuation
     float constant;
     float linear;
     float quadratic;
+    //Spot light
+    float cutOff;
+    float outerCutOff;
 };
 
 // Camera Position

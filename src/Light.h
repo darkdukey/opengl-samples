@@ -19,10 +19,17 @@ class Light : public Node {
     glm::vec3 _ambient;
     glm::vec3 _diffuse;
     glm::vec3 _specular;
+
     //Attenuation
     float _constant;
     float _linear;
     float _quadratic;
+
+    //Spot light
+    float _cutOff;
+    float _outerCutOff;
+
+    //Debug
     bool _hasDebugShape;
 
    public:
@@ -43,5 +50,9 @@ class Light : public Node {
     LightType type() { return _lightType; }
     float cst() { return _constant; }
     float lin() { return _linear; }
-    float quad() { return _quadratic;}
+    float quad() { return _quadratic; }
+    void scut(float v) { _cutOff = v; }
+    float cut() { return _cutOff; }
+    void socut(float v) { _outerCutOff = v; }
+    float ocut() { return _outerCutOff; }
 };
