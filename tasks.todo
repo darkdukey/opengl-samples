@@ -1,0 +1,4 @@
+
+☐ Renderer command support Depth buffer
+☐ Renderer command support stencil buffer
+☐ Implement blending options
