@@ -1,7 +1,6 @@
-#include <glad/glad.h>
-//User headers
-#include "Debug.h"
 #include "Texture.h"
+
+#include "Debug.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "FileUtil.h"
 #include "stb_image.h"

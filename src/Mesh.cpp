@@ -1,6 +1,4 @@
 #include "Mesh.h"
-
-#include <glad/glad.h>
 //User headers
 #include "TextureManager.h"
 using namespace std;

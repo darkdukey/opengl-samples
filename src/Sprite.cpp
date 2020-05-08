@@ -1,10 +1,9 @@
-#include <glad/glad.h>
-//User headers
+#include "Sprite.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.h"
 #include "ShaderManager.h"
-#include "Sprite.h"
 #include "Texture.h"
 #include "TextureManager.h"
 
