@@ -240,6 +240,49 @@ void createLitScene() {
     });
 }
 
+void createDepthScene() {
+    auto sc = Scene::create();
+    scenes.push_back(sc);
+
+    //Create camera
+    auto cam = Camera::create(800, 600);
+    cam->spos(0, 15, 10);
+    cam->lookat(0, 12, 0);
+    sc->addChild(cam);
+
+    //Ruby cube in the front
+    Material mat_ruby({0.1745, 0.01175, 0.01175}, {0.61424, 0.04136, 0.04136}, {0.727811, 0.626959, 0.626959}, 76.8);
+    auto cb3 = LitCube::create("material");
+    cb3->spos(-0.5, 12, -1);
+    cb3->sscale(2, 2, 2);
+    cb3->setMaterial(mat_ruby);
+    sc->addChild(cb3);
+
+    //Green cube in the middle
+    Material mat_rubber({0, 0.05, 0}, {0.4, 0.5, 0.4}, {0.04, 0.7, 0.04}, 10);
+    auto cb2 = LitCube::create("material");
+    cb2->spos(0.5, 12, -2);
+    cb2->sscale(2, 2, 2);
+    cb2->setMaterial(mat_rubber);
+    sc->addChild(cb2);
+
+    //Orange cube at the back
+    Material mat1({1.0f, 0.5f, 0.31f}, {1.0f, 0.5f, 0.31f}, {0.5f, 0.5f, 0.5f}, 32.0f);
+    auto cb1 = LitCube::create("material");
+    cb1->spos(0, 12, -8);
+    cb1->sscale(4, 4, 4);
+    cb1->setMaterial(mat1);
+    sc->addChild(cb1);
+
+    //Sun light
+    auto directLight = Light::create("sun", Directional);
+    directLight->spos(1, -1, -4);
+    directLight->samb({0.1f, 0.1f, 0.1f});
+    directLight->sdiff({0.4f, 0.4f, 0.4f});
+    directLight->sspec({0.5f, 0.5f, 0.5f});
+    sc->addChild(directLight);
+}
+
 int main(int argc, char const* argv[]) {
     curr = 0;
 
@@ -269,9 +312,10 @@ int main(int argc, char const* argv[]) {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     //TODO: move this to renderer
-    glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_DEPTH_TEST);
 
     //Create Scenes
+    createDepthScene();
     createSpotScene();
     createSpriteScene();
     createSolidScene();
