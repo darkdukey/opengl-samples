@@ -15,9 +15,9 @@ class Camera : public Node {
    private:
     int _width;
     int _height;
-    glm::mat4 _proj;
-    glm::mat4 _view;
     ProjMode _mode = Perspective;
+    GETR(glm::mat4, proj, Proj)
+    GETR(glm::mat4, view, View)
 
    public:
     static std::shared_ptr<Camera> create(int width, int height);
@@ -29,9 +29,6 @@ class Camera : public Node {
     void spos(float x, float y, float z) override;
     void onAddToScene(Scene* scene) override;
     void onRemoveFromScene(Scene* scene) override;
-
-    glm::mat4& getProj() { return _proj; }
-    glm::mat4& getView() { return _view; }
 
    private:
     void refresh();

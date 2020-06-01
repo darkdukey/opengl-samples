@@ -30,7 +30,11 @@ class Graphics {
     void addTexture(const std::string& name, const std::string& type);
     void draw(const glm::mat4& transform);
     void createBuffer(const std::vector<Vertex>& vertices, const std::vector<uint>& indices);
-    void setUniform(const std::string& name, glm::vec3 value);
-    void setUniform(const std::string& name, float value);
     void setMaterial(const Material& m);
+    void setUniform(const std::string& name, glm::vec3 value) {
+        _vec3Map[name] = value;
+    }
+    void setUniform(const std::string& name, float value) {
+        _floatMap[name] = value;
+    }
 };

@@ -77,14 +77,6 @@ void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& 
     glBindVertexArray(0);
 }
 
-void Graphics::setUniform(const string& name, glm::vec3 value) {
-    _vec3Map[name] = value;
-}
-
-void Graphics::setUniform(const std::string& name, float value) {
-    _floatMap[name] = value;
-}
-
 void Graphics::setMaterial(const Material& m) {
     if (!m.getDiffuseMap().empty()) {
         addTexture(m.getDiffuseMap(), "material.diffuseMap");
