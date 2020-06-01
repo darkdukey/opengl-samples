@@ -21,6 +21,7 @@ class Graphics {
     uint _indexSize;
     DrawCmd* _cmd;
     std::string _shaderName;
+    bool _useDepth;
 
    public:
     Graphics(const std::string& shader_name);

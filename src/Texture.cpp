@@ -1,5 +1,8 @@
 #include "Texture.h"
 
+#include <glad/glad.h>
+//Don't reorg
+
 #include "Debug.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "FileUtil.h"
@@ -15,8 +18,11 @@ Texture::Texture(const string& path) : _path(path) {
 Texture::~Texture() {
 }
 
-void Texture::enable(int order) {
-    glActiveTexture(order);
+void Texture::enable(int texUnitID) {
+    if (texUnitID == 0) {
+        texUnitID = GL_TEXTURE0;
+    }
+    glActiveTexture(texUnitID);
     glBindTexture(GL_TEXTURE_2D, _textureID);
 }
 

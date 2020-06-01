@@ -1,6 +1,4 @@
 #pragma once
-#include <glad/glad.h>
-//Don't reorg
 
 #include <string>
 
@@ -10,7 +8,7 @@ class Texture {
    public:
     Texture(const std::string& path);
     ~Texture();
-    void enable(int order = GL_TEXTURE0);
+    void enable(int texUnitID = 0);
     uint getID() { return _textureID; }
 
    private:

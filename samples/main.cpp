@@ -311,9 +311,6 @@ int main(int argc, char const* argv[]) {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    //TODO: move this to renderer
-    // glEnable(GL_DEPTH_TEST);
-
     //Create Scenes
     createDepthScene();
     createSpotScene();

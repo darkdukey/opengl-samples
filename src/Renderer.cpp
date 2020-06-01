@@ -46,6 +46,15 @@ void Renderer::draw(shared_ptr<Camera> cam, LightManager* lightMgr) {
 
     for (uint i = 0; i < _count; i++) {
         auto& data = _cmdList[i];
+
+        if (data.isUseDepth()) {
+            glEnable(GL_DEPTH_TEST);
+            glDepthMask(GL_TRUE);
+        } else {
+            glDisable(GL_DEPTH_TEST);
+            glDepthMask(GL_FALSE);
+        }
+
         Shader* s = ShaderManager::ins().get(data.getShaderName());
         s->enable();
 

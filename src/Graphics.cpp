@@ -1,5 +1,8 @@
 #include "Graphics.h"
 
+#include <glad/glad.h>
+//Don't reorg
+
 #include <iterator>
 
 #include "Renderer.h"
@@ -10,7 +13,8 @@ Graphics::Graphics(const string& shader_name)
     : _VAO(0),
       _indexSize(0),
       _shaderName(shader_name),
-      _cmd(nullptr) {
+      _cmd(nullptr),
+      _useDepth(true) {
     setMaterial({{0.25f, 0.20725f, 0.20725f}, {1.0f, 0.829f, 0.829f}, {0.296648f, 0.296648f, 0.296648f}, 11.26f});
 }
 
@@ -35,6 +39,7 @@ void Graphics::draw(const glm::mat4& transform) {
     _cmd->setCount(_indexSize);
     _cmd->setUniform(_vec3Map);
     _cmd->setUniform(_floatMap);
+    _cmd->setUseDepth(_useDepth);
 }
 
 void Graphics::createBuffer(const vector<Vertex>& vertices, const vector<uint>& indices) {
